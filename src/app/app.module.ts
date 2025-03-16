@@ -14,6 +14,9 @@ import { TNManagementPageComponent } from './Components/tnmanagement-page/tnmana
 import { ImpactTrainingPageComponent } from './Components/impact-training-page/impact-training-page.component';
 import { ExcelDatePipePipe } from './Custompipes/excel-date-pipe.pipe';
 import { InternshipComponent } from './Components/Internship/internship.component';
+import { TNStructureComponent } from './Components/tn-structure/tn-structure.component';
+import { ReviewPendingComponent } from './Components/review-pending/review-pending.component';
+import { ReviewFormComponent } from './Components/review-form/review-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { InternshipComponent } from './Components/Internship/internship.componen
     TNManagementPageComponent,
     ImpactTrainingPageComponent,
     ExcelDatePipePipe,
-    InternshipComponent
+    InternshipComponent,
+    TNStructureComponent,
+    ReviewPendingComponent,
+    ReviewFormComponent
   ],
   imports: [
     BrowserModule,

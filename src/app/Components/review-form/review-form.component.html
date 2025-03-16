@@ -1,0 +1,98 @@
+<!-- 
+ 
+Team Name : L & D Interstellar
+Project Name : Code Dribble
+Started Date : 16-03-2025
+Expected End Date : 16-03-2025
+Description: this component is used for Review Form.
+
+
+-->
+<div class="TN-management">
+    <div class="inner-TNmanagement">
+        <h2>Review - Form</h2>
+    </div>
+    <div class="inner-TNmanagement">
+        <h4>Review - Form</h4>
+    </div>
+    <div class="inner-TNmanagement">
+        <form [formGroup]="reviewForm">
+            <div class="form-controls">
+                <div class="inner-form-controls">
+                    <label for="">Technical Topic</label>
+                    <select name="" id="" formControlName = "technicalTopic">
+                        <option value="" selected>select technical topic</option>
+                        <option value="Java">Java</option>
+                        <option value="Testing">Testing</option>
+                    </select>
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">Reviewer Name</label>
+                    <input type="text" placeholder="Enter Reviewer Name" formControlName = "reviewerName">
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">Reviewer ID</label>
+                    <input type="text" placeholder="Enter Reviewer ID" formControlName = "reviewerID">
+                </div>
+            </div>
+            <div class="form-controls">
+                <div class="inner-form-controls">
+                    <label for="">Non-Technical Topic</label>
+                    <select name="" id=""  formControlName = "nonTechnicalTopic">
+                        <option value="" selected>select non-technical topic</option>
+                        <option value="soft skills" selected>Soft Skills</option>
+                    </select>
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">Trainee Name</label>
+                    <input type="text" placeholder="Enter Trainee Name"  formControlName = "traineeName">
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">Trainee ID</label>
+                    <input type="text" placeholder="Enter Trainee ID"  formControlName = "traineeID">
+                </div>
+            </div>
+            <div class="form-controls">
+                <div class="inner-form-controls">
+                    <label for="">Review Type</label>
+                    <select name="" id=""  formControlName = "reviewType">
+                        <option value="" selected>select review type</option>
+                        <option value="TN Review" >TN Review</option>
+                        <option value="SL Review" >SL Review</option>
+                    </select>
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">Mentor Name</label>
+                    <input type="text" placeholder="Enter Mentor Name"  formControlName = "mentorName">
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">Mentor ID</label>
+                    <input type="text" placeholder="Enter Mentor ID"  formControlName = "mentorID">
+                </div>
+            </div>
+            <div class="form-controls">
+                <div class="inner-form-controls">
+                    <label for="">Review Date</label>
+                    <input type="Date" placeholder="Select Review Date"  formControlName = "reviewDate">
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">TN Team</label>
+                    <input type="text" placeholder="Enter TN Team"  formControlName = "TNTeam">
+                </div>
+                <div class="inner-form-controls">
+                    <label for="">TN Team ID</label>
+                    <input type="text" placeholder="Enter TN Team ID"  formControlName = "TNTeamID">
+                </div>
+            </div>
+            
+            <div class="form-controls">
+                <div class="inner-form-controls">
+                    <button>Cancel</button>
+                </div>
+                <div class="inner-form-controls">
+                   <button [disabled]="!reviewForm.valid" (click)="reviewFormDetails(reviewForm.value)">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>  
+</div>

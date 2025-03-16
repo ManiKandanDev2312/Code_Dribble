@@ -24,10 +24,10 @@ Description: this component is used for Login Purpose.
             <form [formGroup]="loginForm">
             <div class="form-controls">
                 <div class="inner-form-controls">
-                    <label for="">Email or ACE ID <span>*</span></label>
+                    <label for="">Email <span>*</span></label>
                 </div>
                 <div class="inner-form-controls">
-                    <input type="text" placeholder="Enter your Email or ACE ID" formControlName="EmployeeEmail">
+                    <input type="text" placeholder="Enter your Email" formControlName="EmployeeEmail">
                     <img *ngIf="!(loginForm.get('EmployeeEmail')?.errors?.['pattern'] && (loginForm.get('EmployeeEmail')?.dirty || loginForm.get('EmployeeEmail')?.touched))" src="./assets/Login/Login-TrueIcon1.svg" alt="normal Icon" style="width: 30px;">
                     <img *ngIf="loginForm.get('EmployeeEmail')?.errors?.['pattern'] && (loginForm.get('EmployeeEmail')?.dirty || loginForm.get('EmployeeEmail')?.touched)" src="./assets/Login/Login-EmailErrorIcon.svg" alt="Error Icon" style="width: 30px;">
                     <img *ngIf="loginForm.get('EmployeeEmail')?.valid" src="./assets/Login/Login-EmailSuccessIcon.svg" alt="Success Icon" style="width: 30px;">
@@ -51,14 +51,7 @@ Description: this component is used for Login Purpose.
                 </div>
             </div>
             <div class="form-controls form-flex">
-                <button class="login-button" [disabled]="!loginForm.valid" (click)="routeToDashboard()">LOGIN</button>
-            </div>
-            <div class="form-controls form-flex">
-                <small>or</small>
-            </div>
-            <div class="form-controls">
-                
-                <button class="micro-logo"><img src="./assets/Login/Login-FormMicrosoftLogo.svg" alt="Microsoft-logo" style="width: 22px;"> Continue With Microsoft Account</button>
+                <button class="login-button" [disabled]="!loginForm.valid" (click)="routeToDashboard(loginForm.value)">LOGIN</button>
             </div>
         </form>
         </div>

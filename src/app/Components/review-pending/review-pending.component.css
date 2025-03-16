@@ -5,18 +5,7 @@
     --font-color: #1E1F24;
     --header-color: #FAF8FE;
 }
-::-webkit-scrollbar{
-    width: 5px;
-}
 
-::-webkit-scrollbar-track{
-    background-color: var(--primary-color);
-}
-
-::-webkit-scrollbar-thumb{
-    background-color: var(--secondary-color);
-    border-radius: 5px;
-}
 .TN-management{
     display: flex;
     flex-direction: column;
@@ -138,6 +127,7 @@ border: 1px solid var(--secondary-color);
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     padding: 10px 0px 10px 0px;
+    height: 70px;
 }
 
 .table-data input[type="checkbox"]{
@@ -186,17 +176,17 @@ border: 1px solid var(--secondary-color);
     width: 120px;
 }
 .data:nth-child(2){
-    width: 70px;
+    width: 100px;
 }
 .data:nth-child(3){
     width: 130px;
 }
 .data:nth-child(4){
-    width: 200px;
+    width: 150px;
     text-transform: none;
 }
 .data:nth-child(5){
-    width: 150px;
+    width: 100px;
 }
 .data:nth-child(6){
     width: 90px;
@@ -268,7 +258,18 @@ border: 1px solid var(--secondary-color);
     overflow-y: scroll;
 }
 
+.scroll-content::-webkit-scrollbar{
+    width: 5px;
+}
 
+.scroll-content::-webkit-scrollbar-track{
+    background-color: var(--primary-color);
+}
+
+.scroll-content::-webkit-scrollbar-thumb{
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
 
 .Member-Management{
     position:absolute;
@@ -286,14 +287,7 @@ border: 1px solid var(--secondary-color);
     flex-direction: column;
     gap: 10px;
     border-radius: 5px;
-    height: 90vh;
 }
-.scroll-content-addTable{
-    height: 70vh;
-    overflow-y: scroll;
-}
-
-
 
 .formcontrols h2{
     font-size: 1.3vw;
@@ -311,7 +305,6 @@ form{
     display: flex;
     gap: 20px;
     justify-content: space-between;
-    margin-top: 10px;
 }
 
 .formcontrols input{
@@ -436,6 +429,19 @@ form{
     overflow-y: scroll;
 }
 
+.scroll-content-2::-webkit-scrollbar{
+    width: 5px;
+}
+
+.scroll-content-2::-webkit-scrollbar-track{
+    background-color: var(--primary-color);
+   
+}
+
+.scroll-content-2::-webkit-scrollbar-thumb{
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
 
 .inner-TraineeDetails table tr{
     display: flex;

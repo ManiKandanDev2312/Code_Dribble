@@ -28,7 +28,7 @@ Description: this component is used for Impact Training.
             <div class="inner-functionalites">
                 <div class="function-buttons">
                     <button *ngIf="TNData.length < 10"> Employees : 0{{TNData.length}}</button>
-                    <button *ngIf="TNData.length > 10"> Employees : {{TNData.length}}</button>
+                    <button *ngIf="TNData.length >= 10"> Employees : {{TNData.length}}</button>
                 </div>
                 <div class="function-buttons">
                     <button><i class="ph ph-download-simple"></i></button>
@@ -52,11 +52,11 @@ Description: this component is used for Impact Training.
        <table>
         <tr class="table-header">
             <th (click)="clickAllCheckBoxes()"><input type="checkbox" id="parentCheckBox"></th>
-            <th class="data">ACE ID <i class="ph ph-funnel-simple"></i></th>
+            <th class="data">INT ID <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Name <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Mail ID <i class="ph ph-funnel-simple"></i></th>
             <th class="data">College Name <i class="ph ph-funnel-simple"></i></th>
-            <th class="data">Practice <i class="ph ph-funnel-simple"></i></th>
+            <th class="data">PH NO <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Date of Joining <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Action <i class="ph ph-funnel-simple"></i></th>
         </tr>
@@ -75,11 +75,11 @@ Description: this component is used for Impact Training.
         <div class="scroll-content">
         <tr class="table-data" *ngFor="let data of TNData;let i=index">
             <td><input type="checkbox" [id]="'checkbox'+i"></td>
-            <td class="data" title="{{data.ACE_ID}}"  (click)="showTraineeDetails(i)">{{data.ACE_ID}}</td>
-            <td class="data" title="{{data.NAME}}">{{data.NAME}}</td>
+            <td class="data" title="{{data.ACE_ID}}"  (click)="showTraineeDetails(i)">{{data.INT_ID}}</td>
+            <td class="data" title="{{data.NAME}}">{{data.Name}}</td>
             <td class="data" title="{{data.Mail_Id}}">{{data.Mail_Id}}</td>
             <td class="data" title="{{data.College}}">{{data.College}}</td>
-            <td class="data" title="{{data.Practice}}">{{data.Practice}}</td>
+            <td class="data" title="{{data.Practice}}">{{data.Contact_Num}}</td>
             <td class="data" title="{{data.Date_of_Joining}}">{{data.Date_of_Joining | excelDatePipe}}</td>
             <td class="data">
                 <button (click)="editMember(i)"><i class="ph ph-pencil-simple"></i></button>
@@ -96,6 +96,7 @@ Description: this component is used for Impact Training.
 <div class="Member-Management" *ngIf="showMemberManagement">
     <div class="inner-Membermanagement">
         <form [formGroup]="memberForm">
+            
             <div class="formcontrols">
                 <div class="inner-formcontrols">
                     <h2>Add Employee</h2>
@@ -104,30 +105,19 @@ Description: this component is used for Impact Training.
                     <i class="ph ph-x"></i>
                 </div>
             </div>
-            <div class="formcontrols">
+            <div class="scroll-content-addTable">
+            <div class="formcontrols" *ngFor = "let data of crudEmployeeDetails">
                 <div class="inner-formcontrols">
-                    <input type="text" placeholder="ACE ID" formControlName="ACE_ID" />
+                    <input type="text" placeholder= {{data[0]}} formControlName="ACE_ID" />
                 </div>
                 <div class="inner-formcontrols">
-                    <input type="text" placeholder="First Name" formControlName="First_Name" />
-                </div>
-            </div>
-            <div class="formcontrols">
-                <div class="inner-formcontrols">
-                    <input type="text" placeholder="Last Name" formControlName="Last_Name" />
+                    <input type="text" placeholder={{data[1]}} formControlName="First_Name" />
                 </div>
                 <div class="inner-formcontrols">
-                    <input type="text" placeholder="Designation" formControlName="Designation" />
+                    <input type="text" placeholder={{data[2]}} formControlName="First_Name" />
                 </div>
             </div>
-            <div class="formcontrols">
-                <div class="inner-formcontrols">
-                    <input type="text" placeholder="Team" formControlName="Team" />
-                </div>
-                <div class="inner-formcontrols">
-                    <input type="text" placeholder="Practice" formControlName="Practice" />
-                </div>
-            </div>
+        </div>
             <div class="formcontrols">
                 <div class="inner-formcontrols"><button (click)="clearForm()"><i class="ph ph-prohibit"></i> Cancel</button></div>
                 <div class="inner-formcontrols"><button [disabled]="!memberForm.valid" (click)="addMember(memberForm.value)"><i class="ph ph-plus"></i> Add</button></div>
@@ -212,7 +202,7 @@ Description: this component is used for Impact Training.
 <div class="showTraineeDetails" *ngIf="showTraineeList">
     <div class="inner-TraineeDetails">
         <div class="inner-TNmanagement">
-            <h2>Impact Trainee</h2>
+            <h2>Intern Trainee</h2>
         </div>
         <div class="inner-TNmanagement">
             <button (click)="showTraineeDetails(-1)"><i class="ph ph-rewind"></i>Back</button>
@@ -227,12 +217,12 @@ Description: this component is used for Impact Training.
             <div class="scroll-content-2">
             <tr>
                 <td>
-                    <label for="">ACE ID</label>
-                    <p>{{traineeDetail.ACE_ID}}</p>
+                    <label for="">Intern ID</label>
+                    <p>{{traineeDetail.INT_ID}}</p>
                 </td>
                 <td>
                     <label for="">Name</label>
-                    <p>{{traineeDetail.NAME}}</p>
+                    <p>{{traineeDetail.Name}}</p>
                 </td>
                 <td>
                     <label for="">professional Mail ID</label>
@@ -250,7 +240,7 @@ Description: this component is used for Impact Training.
                 </td>
                 <td>
                     <label for="">personal Mail ID</label>
-                    <p>{{traineeDetail.Personal_Email_id}}</p>
+                    <p>{{traineeDetail.Personal_mail_id}}</p>
                 </td>
             </tr>
             <tr>
@@ -273,8 +263,8 @@ Description: this component is used for Impact Training.
                     <p>{{traineeDetail.Gender}}</p>
                 </td>
                 <td>
-                    <label for="">TN HR Partner</label>
-                    <p>{{traineeDetail.TN_HR_Partner}}</p>
+                    <label for="">Department</label>
+                    <p>{{traineeDetail.Department}}</p>
                 </td>
                 <td>
                     <label for="">Qualification</label>
@@ -391,6 +381,20 @@ Description: this component is used for Impact Training.
                 <td>
                     <label for="">Moved Date</label>
                     <p>{{traineeDetail.Moved_Date | excelDatePipe}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Mentor</label>
+                    <p>{{traineeDetail.Mentor}}</p>
+                </td>
+                <td>
+                    <label for="">HR Partner</label>
+                    <p>{{traineeDetail.HR_Partner}}</p>
+                </td>
+                <td>
+                    <label for="">Completion of Internship</label>
+                    <p>{{traineeDetail.Date_of_COMPLETION_OF_INTERNSHIP | excelDatePipe}}</p>
                 </td>
             </tr>
         </div>

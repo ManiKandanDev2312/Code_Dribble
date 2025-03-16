@@ -10,6 +10,9 @@ import { RouterLinkActive } from "@angular/router";
 export class HomePageComponent {
 
   isSubNavigation :any = [];
+  employeeName = "";
+  employeeDesignation = "";
+
 
   // this variable is used to list out the side bar links
   sideBarLinks = [{
@@ -34,8 +37,8 @@ export class HomePageComponent {
     downArrow:"ph ph-caret-down",
     subNavigationLinks:[
       {
-        pageName:"TN Team Structure",
-        route:"impact-training"
+        pageName:"Team Structure",
+        route:"tn-management/TN_Structure"
         }
     ]
   },{
@@ -49,22 +52,50 @@ export class HomePageComponent {
       route:"impact-training"
       },
       {
-      pageName:"CoE Training",
-      route:"tn-management"
-      },
-      {
       pageName:"Internship",
-      route:"Internship"
+      route:"impact-training/Internship"
       },
       {
-      pageName:"Shine",
-      route:"tn-management"
-      },
-      {
-      pageName:"RMG",
-      route:"tn-management"
-      },
+        pageName:"CoE Training",
+        route:"tn-management"
+        }
+      // {
+      // pageName:"Shine",
+      // route:"tn-management"
+      // },
+      // {
+      // pageName:"RMG",
+      // route:"tn-management"
+      // },
 ]
+},
+{
+  pageName:"Review Reports",
+    icon:"ph ph-note-pencil",
+    route:"reviewPending",
+    downArrow:"ph ph-caret-down",
+    subNavigationLinks:[
+      {
+        pageName:"Review | Pending",
+        route:"reviewPending"
+      },
+      {
+        pageName:"Review Form",
+        route:"reviewForm"
+      },
+      {
+        pageName:"Review | Individual",
+        route:"cfgh"
+      },
+      {
+        pageName:"Review | Trainee",
+        route:"cfgh"
+      },
+      {
+        pageName:"Question Bank",
+        route:"cfgh"
+      }
+    ]
 },
 {
   pageName:"Courses",
@@ -84,18 +115,23 @@ export class HomePageComponent {
         route:"cfgh"
       }
     ]
-},
-{
-  pageName:"Adminstration",
-    icon:"ph ph-wrench",
-    route:"fgh",
-    downArrow:"",
-    subNavigationLinks:[]
 }
+// {
+//   pageName:"Adminstration",
+//     icon:"ph ph-wrench",
+//     route:"fgh",
+//     downArrow:"",
+//     subNavigationLinks:[]
+// }
+
+
 
 ]
 
-
+constructor(){
+  this.employeeName = JSON.stringify(sessionStorage.getItem("Employee_Name"));
+  this.employeeDesignation = JSON.stringify(sessionStorage.getItem("Employee_Designation"));
+}
 //this function is used to toggle the sub navigation links
 subNavLink(index:any){
   if(!this.isSubNavigation[index]){

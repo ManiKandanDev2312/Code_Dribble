@@ -6,6 +6,9 @@ import { DashboardPageComponent } from './Components/dashboard-page/dashboard-pa
 import { TNManagementPageComponent } from './Components/tnmanagement-page/tnmanagement-page.component';
 import { ImpactTrainingPageComponent } from './Components/impact-training-page/impact-training-page.component';
 import { InternshipComponent } from './Components/Internship/internship.component';
+import { TNStructureComponent } from './Components/tn-structure/tn-structure.component';
+import { ReviewPendingComponent } from './Components/review-pending/review-pending.component';
+import { ReviewFormComponent } from './Components/review-form/review-form.component';
 
 const routes: Routes = [
   {
@@ -34,8 +37,20 @@ const routes: Routes = [
         component:ImpactTrainingPageComponent
       },
       {
-        path:"Internship",
+        path:"impact-training/Internship",
         component: InternshipComponent
+      },
+      {
+        path:"tn-management/TN_Structure",
+        component: TNStructureComponent
+      },
+      {
+        path:"reviewPending",
+        component: ReviewPendingComponent
+      },
+      {
+        path:"reviewForm",
+        component: ReviewFormComponent
       }
 
     ]

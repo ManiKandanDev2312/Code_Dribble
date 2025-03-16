@@ -1,20 +1,25 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TraineeDetailsService } from 'src/app/services/trainee-details.service';
 
 @Component({
-  selector: 'app-tnmanagement-page',
-  templateUrl: './tnmanagement-page.component.html',
-  styleUrls: ['./tnmanagement-page.component.css']
+  selector: 'app-review-pending',
+  templateUrl: './review-pending.component.html',
+  styleUrls: ['./review-pending.component.css']
 })
-export class TNManagementPageComponent {
-  TNData:any =[];
+export class ReviewPendingComponent {
+TNData:any =[];
   checkTNData = [];
   checkboxIndex= 1;
+  traineeDetail:any = {};
+
+  selectedFile: File | null = null;
 
   showMemberManagement:boolean = false;
   showUploadFile:boolean = false;
   showEditMember:boolean = false;
+  showTraineeList:boolean = false;
 
   memberForm:FormGroup;
   uploadForm:FormGroup;
@@ -27,10 +32,9 @@ export class TNManagementPageComponent {
   filterByLastName:string= "";
   filterByDesignation:string="";
   filterByTeam:string = "";
-  selectedFile:any;
 
 
-  constructor(private formBuilder: FormBuilder,private traineeDetailsService:TraineeDetailsService) { 
+  constructor(private formBuilder: FormBuilder, private traineeDetailsService:TraineeDetailsService, private router:Router) { 
 
     // this FormGroup is used to filter the data by Keyword
     this.KeywordForm = this.formBuilder.group({
@@ -53,10 +57,10 @@ export class TNManagementPageComponent {
 
       ACE_ID: ['',Validators.required],
       First_Name: ['',Validators.required],
-      Last_Name: ['',Validators.required],
-      Designation: ['',Validators.required],
-      Team: ['',Validators.required],
-      Practice: ['',Validators.required]
+      Mail_ID: ['',Validators.required],
+      College_Name: ['',Validators.required],
+      Practice: ['',Validators.required],
+      DOJ: ['',Validators.required]
 
     });
 
@@ -65,9 +69,8 @@ export class TNManagementPageComponent {
       fileUpload:['',Validators.required]
     });
 
-   
-     // this Array is the Full details of the Review
-   this.retrieveTNDetails();
+    // this Array is the Full details of the Review
+   this.retrieveReviewDetails();
 
     //this code is used when the filterByKeyword variable disturbed it calls filter function
     this.KeywordForm.valueChanges.subscribe((value) => {
@@ -77,35 +80,19 @@ export class TNManagementPageComponent {
   }
 
   //this method is used to retrieve the Trainee Data
-  retrieveTNDetails(){
-    this.traineeDetailsService.TNDetails().subscribe((details)=>{
+  retrieveReviewDetails(){
+    this.traineeDetailsService.reviewDetails().subscribe((details)=>{
        this.TNData = details;
        this.checkTNData = this.TNData;
     });
   }
-  // this method is used to show the member management
-  showMember(){
-    if(this.showMemberManagement){
-      this.showMemberManagement = false;
-    }else{
-      this.showMemberManagement = true;
-    }
-  }
+
+
 
   //this method is used to clear the data in form
   clearForm(){
-    this.memberForm.reset();
-    this.uploadForm.reset();
   }
 
-  // this method is used to show the file upload form
-  showFileUpload(){
-    if(this.showUploadFile){
-      this.showUploadFile = false;
-    }else{
-      this.showUploadFile = true;
-    }
-  }
 
 
   // this method is used to select all the checkboxes
@@ -128,6 +115,7 @@ export class TNManagementPageComponent {
 
   // this method is used to filter the data
   filterData(value:any){
+    console.log(this.TNData);
         this.TNData = this.checkTNData;
       if(value.filterByKeyword != ''){
         let filtertedData = new Set<any>();
@@ -149,19 +137,13 @@ export class TNManagementPageComponent {
     }
   }
 
-  // this method is used to Add the Member
-  addMember(value: any){
-    this.TNData.push(value);
-    alert("successfully Added "+value.First_Name);
-    this.showMember();
-  }
 
   // this method is used to remove the member
   deleteMember(index:any){
-    if(confirm("sure you want to Remove "+this.TNData[index].FIRST_NAME)){
-    this.traineeDetailsService.deleteTNDetails(this.TNData[index]);
-    this.TNData.splice(index,1);
-    this.checkTNData = this.TNData;
+    if(confirm("sure you want to Remove "+this.TNData[index].NAME)) {
+      this.traineeDetailsService.deleteReviewDetails(this.TNData[index]);
+      this.TNData.splice(index,1);
+      this.checkTNData = this.TNData;
     }
   }
 
@@ -178,10 +160,10 @@ export class TNManagementPageComponent {
     this.showEdit();
     this.editMemberForm.controls['ACE_ID'].setValue(this.TNData[index].ACE_ID);
     this.editMemberForm.controls['First_Name'].setValue(this.TNData[index].First_Name);
-    this.editMemberForm.controls['Last_Name'].setValue(this.TNData[index].Last_Name);
-    this.editMemberForm.controls['Designation'].setValue(this.TNData[index].Designation);
-    this.editMemberForm.controls['Team'].setValue(this.TNData[index].Team);
+    this.editMemberForm.controls['Mail_ID'].setValue(this.TNData[index].Mail_ID);
+    this.editMemberForm.controls['College_Name'].setValue(this.TNData[index].College_Name);
     this.editMemberForm.controls['Practice'].setValue(this.TNData[index].Practice);
+    this.editMemberForm.controls['DOJ'].setValue(this.TNData[index].DOJ);
   }
 
 
@@ -203,9 +185,9 @@ export class TNManagementPageComponent {
     const checkbox = document.getElementById("parentCheckBox") as HTMLInputElement;
     if(checkbox.checked){
     if(confirm("sure you want to remove all Members")){
-    this.traineeDetailsService.deleteAllTNDetails();
+    this.traineeDetailsService.deleteAllReviewDetails();
     this.TNData = [];
-    this.checkTNData = this.TNData;
+    this.checkTNData = [];
     checkbox.checked = false;
     }
     }else{
@@ -224,17 +206,29 @@ export class TNManagementPageComponent {
     }
   }
 
-    // this method is used to catch the file from the form
-    onFileChange(event:any){
-      if (event.target.files.length > 0) {
-        const file = event.target.files[0];
-        if(file)
-          this.selectedFile = file;
-      }
-    }
 
-   //this method is used to upload the file
-   uploadFile(){
-    this.traineeDetailsService.TNDetailsSendExcelFile(this.selectedFile);
+  // this method is used to show the individual details
+  showTraineeDetails(index:any){
+    if(index >= 0)
+      this.traineeDetail = this.TNData[index];
+    console.log(this.traineeDetail);
+    if(this.showTraineeList)
+      this.showTraineeList = false;
+    else
+    this.showTraineeList = true;
+  }
+
+  // this method is used to catch the file from the form
+  onFileChange(event:any){
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      if(file)
+        this.selectedFile = file;
+    }
+  }
+
+  //this method is used to upload the file
+  uploadFile(){
+    this.traineeDetailsService.reviewDetailsSendExcelFile(this.selectedFile);
   }
 }

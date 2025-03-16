@@ -14,6 +14,7 @@ export class InternshipComponent {
   checkboxIndex= 1;
   traineeDetail:any = {};
 
+  crudEmployeeDetails : any = [];
   selectedFile: File | null = null;
 
   showMemberManagement:boolean = false;
@@ -89,6 +90,20 @@ export class InternshipComponent {
 
   // this method is used to show the member management
   showMember(){
+    var employeeDataLength = Object.keys(this.TNData[0]).length;
+      var employeeData = Object.keys(this.TNData[0]);
+      var iteratedCount = 2;
+      var detailIndex  = 0;
+      console.log(employeeDataLength);
+      while(iteratedCount < employeeDataLength){
+        var arrayDetail = [];
+        for(var i=0;i<3;i++){
+          console.log(iteratedCount);
+          arrayDetail[i] = employeeData[iteratedCount++];
+        }
+        this.crudEmployeeDetails[detailIndex++] = arrayDetail ;
+      }
+      console.log(this.crudEmployeeDetails);
     if(this.showMemberManagement){
       this.showMemberManagement = false;
     }else{
@@ -132,7 +147,6 @@ export class InternshipComponent {
 
   // this method is used to filter the data
   filterData(value:any){
-    console.log(this.TNData);
         this.TNData = this.checkTNData;
       if(value.filterByKeyword != ''){
         let filtertedData = new Set<any>();
@@ -157,13 +171,13 @@ export class InternshipComponent {
   // this method is used to Add the Member
   addMember(value: any){
     this.TNData.push(value);
-    alert("successfully Added "+value.First_Name);
+    alert("successfully Added "+value.Name);
     this.showMember();
   }
 
   // this method is used to remove the member
   deleteMember(index:any){
-    if(confirm("sure you want to Remove "+this.TNData[index].NAME)) {
+    if(confirm("sure you want to Remove "+this.TNData[index].Name)) {
       this.traineeDetailsService.deleteInternship(this.TNData[index]);
       this.TNData.splice(index,1);
       this.checkTNData = this.TNData;
@@ -181,12 +195,12 @@ export class InternshipComponent {
   // this method is used to fill the Member Details in Edit Form
   editMember(index:any){
     this.showEdit();
-    this.editMemberForm.controls['ACE_ID'].setValue(this.TNData[index].ACE_ID);
-    this.editMemberForm.controls['First_Name'].setValue(this.TNData[index].First_Name);
-    this.editMemberForm.controls['Mail_ID'].setValue(this.TNData[index].Mail_ID);
-    this.editMemberForm.controls['College_Name'].setValue(this.TNData[index].College_Name);
+    this.editMemberForm.controls['ACE_ID'].setValue(this.TNData[index].INT_ID);
+    this.editMemberForm.controls['First_Name'].setValue(this.TNData[index].Name);
+    this.editMemberForm.controls['Mail_ID'].setValue(this.TNData[index].Mail_Id);
+    this.editMemberForm.controls['College_Name'].setValue(this.TNData[index].College);
     this.editMemberForm.controls['Practice'].setValue(this.TNData[index].Practice);
-    this.editMemberForm.controls['DOJ'].setValue(this.TNData[index].DOJ);
+    this.editMemberForm.controls['DOJ'].setValue(this.TNData[index].Date_of_Joining);
   }
 
 

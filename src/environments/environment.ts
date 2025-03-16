@@ -1,10 +1,18 @@
 export const environment = {
     impactTraineeDetails : "http://localhost:3300/impactTraineeDetails",
     deleteImpactTrainee:"http://localhost:3300/deleteImpactTrainee",
-    sendExcelFile:"impactTraineeExcelToDatabase",
+    impactTraineeExcelFile:"http://localhost:3300/impactTraineeExcelToDatabase",
     deleteAllImpactTrainees:"http://localhost:3300/deleteAllImpactTrainee",
     internshipExcelFile:"http://localhost:3300/internshipExcelToDatabase",
     deleteInternship:"http://localhost:3300/deleteInternship",
     deleteAllInternship:"http://localhost:3300/deleteAllInternship",
-    internshipDetails: "http://localhost:3300/internshipDetails"
+    internshipDetails: "http://localhost:3300/internshipDetails",
+    reviewDetailsExcelFile: "http://localhost:3300/reviewDetailsExcelToDatabase",
+    reviewDetails:"http://localhost:3300/reviewDetails",
+    deleteAllReviewDetails:"http://localhost:3300/deleteAllReviewDetails",
+    TNDetails:"http://localhost:3300/TNDetails",
+    TNDetailsExcelFile:"http://localhost:3300/TNDetailsExcelToDatabase",
+    deleteAllTNDetails:"http://localhost:3300/deleteAllTNDetails",
+     deleteTNDetails: "http://localhost:3300/deleteTNDetails",
+     reviewFormDetails:"http://localhost:3300/reviewFormDetails"
 };
