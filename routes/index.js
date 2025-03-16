@@ -76,6 +76,31 @@ router.get("/internshipDetails",(req,res)=>{
     res.status(400).send(error);
    })
 })
+// this method is used to retrieve the Data from Mongodb
+router.get("/reviewDetails",(req,res)=>{
+   db.collection('reviewDetails').find().toArray().then((traineeDetails)=>{
+    res.status(200).send(traineeDetails);
+   }).catch((error)=>{
+    res.status(400).send(error);
+   })
+})
+// this method is used to retrieve the Data from Mongodb
+router.get("/TNDetails",(req,res)=>{
+   db.collection('TNDetails').find().toArray().then((traineeDetails)=>{
+    res.status(200).send(traineeDetails);
+   }).catch((error)=>{
+    res.status(400).send(error);
+   })
+})
+// this method is used to retrieve the Data from Mongodb
+router.post("/reviewFormDetails",(req,res)=>{
+    console.log(req.body);
+   db.collection('reviewDetails').insertOne(req.body).then((traineeDetails)=>{
+    res.status(200).send(traineeDetails);
+   }).catch((error)=>{
+    res.status(400).send(error);
+   })
+})
 
 // this method is used to delete the Data from Impact trainee Details
 router.post("/deleteImpactTrainee",(req,res)=>{
@@ -155,6 +180,75 @@ router.post('/internshipExcelToDatabase', upload.single('file'), (req, res)=>{
       res.status(500).send('Error processing the Excel file');
     }
 });
+// this method is used to upload the trainee data with the help of multer
+router.post('/reviewDetailsExcelToDatabase', upload.single('file'), (req, res)=>{
+    console.log(req.file);
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+    try {
+      const workbook = excelFile.readFile(req.file.path);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = excelFile.utils.sheet_to_json(worksheet);
+      
+      db.collection('reviewDetails').insertMany(jsonData, function(err, res) {
+        if (err) throw err;
+        console.log('Number of documents inserted: ' + res.insertedCount);
+      });
+  
+      res.status(200).send({ message: 'File uploaded and processed', data: jsonData });
+    } catch (error) {
+      console.error('Error processing file:', error);
+      res.status(500).send('Error processing the Excel file');
+    }
+});
+// this method is used to upload the trainee data with the help of multer
+router.post('/internshipExcelToDatabase', upload.single('file'), (req, res)=>{
+    console.log(req.file);
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+    try {
+      const workbook = excelFile.readFile(req.file.path);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = excelFile.utils.sheet_to_json(worksheet);
+      
+      db.collection('internship').insertMany(jsonData, function(err, res) {
+        if (err) throw err;
+        console.log('Number of documents inserted: ' + res.insertedCount);
+      });
+  
+      res.status(200).send({ message: 'File uploaded and processed', data: jsonData });
+    } catch (error) {
+      console.error('Error processing file:', error);
+      res.status(500).send('Error processing the Excel file');
+    }
+});
+// this method is used to upload the trainer data with the help of multer
+router.post('/TNDetailsExcelToDatabase', upload.single('file'), (req, res)=>{
+    console.log(req.file);
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+    try {
+      const workbook = excelFile.readFile(req.file.path);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = excelFile.utils.sheet_to_json(worksheet);
+      
+      db.collection('TNDetails').insertMany(jsonData, function(err, res) {
+        if (err) throw err;
+        console.log('Number of documents inserted: ' + res.insertedCount);
+      });
+  
+      res.status(200).send({ message: 'File uploaded and processed', data: jsonData });
+    } catch (error) {
+      console.error('Error processing file:', error);
+      res.status(500).send('Error processing the Excel file');
+    }
+});
 
 // this method is used to delete the Data from Impact trainee Details
 router.post("/deleteInternship",(req,res)=>{
@@ -166,10 +260,38 @@ router.post("/deleteInternship",(req,res)=>{
         res.status(400).send(error);
     })
 })
+// this method is used to delete the Data from Impact trainee Details
+router.post("/deleteTNDetails",(req,res)=>{
+    const traineeId = new ObjectId(req.body._id);
+    db.collection('TNDetails').findOneAndDelete({_id: traineeId}).then(()=>{
+        res.status(200).send("successfully deleted");
+    }).catch((error)=>{
+        console.log(error);
+        res.status(400).send(error);
+    })
+})
 
-// this method is used to delete all the Data from Impact trainee Details
+// this method is used to delete all the Data from Intern trainee Details
 router.post("/deleteAllInternship",(req,res)=>{
     db.collection('internship').drop().then(() => {
+        res.status(200).send("Successfully deleted multiple trainees");
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send(error);
+    });
+})
+// this method is used to delete all the Data from Review Details
+router.post("/deleteAllReviewDetails",(req,res)=>{
+    db.collection('reviewDetails').drop().then(() => {
+        res.status(200).send("Successfully deleted multiple trainees");
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).send(error);
+    });
+})
+// this method is used to delete all the Data from Review Details
+router.post("/deleteAllTNDetails",(req,res)=>{
+    db.collection('TNDetails').drop().then(() => {
         res.status(200).send("Successfully deleted multiple trainees");
     }).catch((error) => {
         console.log(error);
