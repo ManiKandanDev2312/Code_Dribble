@@ -53,7 +53,7 @@ export class HomePageComponent {
       },
       {
       pageName:"Internship",
-      route:"impact-training/Internship"
+      route:"Internship"
       },
       {
         pageName:"CoE Training",

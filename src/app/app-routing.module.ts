@@ -37,7 +37,7 @@ const routes: Routes = [
         component:ImpactTrainingPageComponent
       },
       {
-        path:"impact-training/Internship",
+        path:"Internship",
         component: InternshipComponent
       },
       {
