@@ -19,7 +19,7 @@ const excelFile = require("xlsx");
 // this line is importing the path module
 const path = require("path");
 
-
+const nodemailer = require("nodemailer");
 
 // environmentFile is used to load the environment variables
 const environmentFile = require("dotenv");
@@ -56,7 +56,7 @@ const fileStorage = multer.diskStorage({
   });
 
 
-  const upload = multer({ storage:fileStorage });
+  const upload = multer({ storage:fileStorage })    ;
 
 
 // this method is used to retrieve the Data from Mongodb
@@ -93,8 +93,16 @@ router.get("/TNDetails",(req,res)=>{
    })
 })
 // this method is used to retrieve the Data from Mongodb
+router.get("/questionBank",(req,res)=>{
+   db.collection('questionBank').find().toArray().then((traineeDetails)=>{
+    console.log(traineeDetails);
+    res.status(200).send(traineeDetails);
+   }).catch((error)=>{
+    res.status(400).send(error);
+   })
+})
+// this method is used to retrieve the Data from Mongodb
 router.post("/reviewFormDetails",(req,res)=>{
-    console.log(req.body);
    db.collection('reviewDetails').insertOne(req.body).then((traineeDetails)=>{
     res.status(200).send(traineeDetails);
    }).catch((error)=>{
@@ -118,7 +126,6 @@ router.post("/deleteAllImpactTrainee",(req,res)=>{
     db.collection('impact-trainee').drop().then(() => {
         res.status(200).send("Successfully deleted multiple trainees");
     }).catch((error) => {
-        console.log(error);
         res.status(400).send(error);
     });
 })
@@ -270,6 +277,16 @@ router.post("/deleteTNDetails",(req,res)=>{
         res.status(400).send(error);
     })
 })
+// this method is used to delete the Data from Impact trainee Details
+router.post("/deleteReviewDetails",(req,res)=>{
+    const traineeId = new ObjectId(req.body._id);
+    db.collection('reviewDetails').findOneAndDelete({_id: traineeId}).then(()=>{
+        res.status(200).send("successfully deleted");
+    }).catch((error)=>{
+        console.log(error);
+        res.status(400).send(error);
+    })
+})
 
 // this method is used to delete all the Data from Intern trainee Details
 router.post("/deleteAllInternship",(req,res)=>{
@@ -297,6 +314,44 @@ router.post("/deleteAllTNDetails",(req,res)=>{
         console.log(error);
         res.status(400).send(error);
     });
+})
+
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false, 
+    auth: {
+      user: 'mani.obulisamy@aspiresys.com', 
+      pass: 'hlqskcghsqwpsndc' 
+    },
+    tls: {
+      ciphers: 'SSLv3'
+    }
+  });
+  
+  
+ 
+
+// this method is used to sent a mail
+router.post("/sendMail",(req,res)=>{
+     // Email options
+     const mailOptions = {
+        from: 'mani.obulisamy@aspiresys.com',
+        to: req.body.to.join(','),
+        cc: req.body.Cc.join(','), 
+        subject: req.body.subject,
+        text: req.body.mailContent
+      };
+  
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(`Error sending email to ${recipient}:`, error);
+    }
+    console.log(`Email sent to ${recipient}:`, info.response);
+  });
+
 })
 
 
