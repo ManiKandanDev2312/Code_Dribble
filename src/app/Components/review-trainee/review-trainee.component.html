@@ -2,7 +2,7 @@
  
 Team Name : L & D Interstellar
 Project Name : Code Dribble
-Started Date : 16-03-2025
+Started Date : 17-03-2025
 Expected End Date : 16-03-2025
 Description: this component is used for Review Pending.
 
@@ -12,10 +12,10 @@ Description: this component is used for Review Pending.
 <!-- this view is visualize the Pending Review Data -->
 <div class="TN-management" *ngIf="!showTraineeList">
     <div class="inner-TNmanagement">
-        <h2>Review - Pending</h2>
+        <h2>Review - Trainee</h2>
     </div>
     <div class="inner-TNmanagement">
-        <h4>Review - Pending</h4>
+        <h4>Review - Trainee</h4>
     </div>
     <div class="inner-TNmanagement">
         <div class="inner-contents">
@@ -38,11 +38,6 @@ Description: this component is used for Review Pending.
                 </div>
 
             </div>
-            <div class="inner-functionalites">
-                <div class="functionality-buttons">
-                    <button (click)="showFileUpload()"><i class="ph ph-paperclip"></i> Upload Files</button>
-                </div>
-            </div>
         </div>
     </div>
     <div class="inner-TNmanagement">
@@ -51,11 +46,7 @@ Description: this component is used for Review Pending.
             <th (click)="clickAllCheckBoxes()"><input type="checkbox" id="parentCheckBox"></th>
             <th class="data">Trainee ID <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Trainee Name <i class="ph ph-funnel-simple"></i></th>
-            <th class="data">Reviewer Name <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Technology <i class="ph ph-funnel-simple"></i></th>
-            <th class="data">TN Team <i class="ph ph-funnel-simple"></i></th>
-            <th class="data">Review Type <i class="ph ph-funnel-simple"></i></th>
-            <th class="data">Review Date <i class="ph ph-funnel-simple"></i></th>
             <th class="data">Action <i class="ph ph-funnel-simple"></i></th>
         </tr>
         <!-- <tr class="table-row">
@@ -75,14 +66,9 @@ Description: this component is used for Review Pending.
             <td><input type="checkbox" [id]="'checkbox'+i"></td>
             <td class="data" title="{{data.ACE_ID}}"  (click)="showTraineeDetails(i)">{{data.TRAINEE_ID}}</td>
             <td class="data" title="{{data.NAME}}">{{data.TRAINEE_NAME}}</td>
-            <td class="data" title="{{data.Mail_Id}}">{{data.REVIEWER_NAME}}</td>
             <td class="data" title="{{data.Mail_Id}}">{{data.TECHNOLOGY}}</td>
-            <td class="data" title="{{data.College}}">{{data.TN_TEAM}}</td>
-            <td class="data" title="{{data.Practice}}">{{data.REVIEW_TYPE}}</td>
-            <td class="data" title="{{data.Date_of_Joining}}">{{data.REVIEW_DATE | excelDatePipe}}</td>
             <td class="data">
-                <button (click)="editMember(i)"><i class="ph ph-pencil-simple"></i></button>
-                <button (click)="deleteMember(i)"><i class="ph ph-trash"></i></button>
+                <button><i class="ph ph-eye"></i></button>
             </td>
         </tr>
     </div>
@@ -330,29 +316,3 @@ Description: this component is used for Review Pending.
 </div>
 
 
-
-<!-- this visualize the Upload File Form -->
-<div class="Member-Management" *ngIf="showUploadFile">
-    <div class="inner-Membermanagement">
-        <form [formGroup]="uploadForm">
-            <div class="formcontrols">
-                <div class="inner-formcontrols">
-                    <h2>Upload File</h2>
-                </div>
-                <div class="inner-formcontrols" (click)="showFileUpload()">
-                    <i class="ph ph-x"></i>
-                </div>
-            </div>
-            <div class="formcontrols">
-                <div class="inner-formcontrols fileUpload">
-                    <input type="file" placeholder="Excel File" formControlName="fileUpload" (change)="onFileChange($event)" />
-                </div>
-            </div>
-            <div class="formcontrols">
-                <div class="inner-formcontrols"><button (click)="clearForm()"><i class="ph ph-prohibit"></i> Cancel</button></div>
-                <div class="inner-formcontrols"><button [disabled]="!uploadForm.valid" (click)="uploadFile()">Submit</button></div>
-            </div>
-
-        </form>
-    </div>
-</div>

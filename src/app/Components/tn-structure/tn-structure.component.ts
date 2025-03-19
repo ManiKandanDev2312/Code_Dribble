@@ -8,11 +8,12 @@ import { Component } from '@angular/core';
 export class TNStructureComponent {
 
   slideImages = [
-    "./assets/sliderImage/image1.jpg",
-    "./assets/sliderImage/image2.jpg"
+    "./assets/sliderImage/Slide1.jpg",
+    "./assets/sliderImage/Slide2.jpg",
+    "./assets/sliderImage/Slide3.jpg"
   ]
 
-  slideImage = "./assets/sliderImage/image1.jpg";
+  slideImage = "./assets/sliderImage/Slide1.jpg";
 
   constructor(){
     var index = 0;

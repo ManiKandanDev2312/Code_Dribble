@@ -1,0 +1,109 @@
+<!-- 
+ 
+Team Name : L & D Interstellar
+Project Name : Code Dribble
+Started Date : 10-03-2025
+Expected End Date : 10-03-2025
+Description: this component is used for Talent Nuturing Management Purpose.
+
+
+-->
+
+<!-- this view is visualize the TN Data -->
+<div class="TN-management">
+    <div class="inner-TNmanagement">
+        <h2>Email</h2>
+    </div>
+    <div class="inner-TNmanagement">
+        <h4>Email</h4>
+    </div>
+
+    <div class="inner-TNmanagement">
+        <form [formGroup]="mailForm">
+            <div class="mail-contents">
+                <div class="input-contents">
+                <label for="" class="domainList">To</label>
+                <div class="to-contents">
+                    <div class="content" *ngFor = "let domain of selectedDomainDisplay; let ind = index">
+                        <label for="" >{{domain}}</label>
+                        <i class="ph ph-x" (click) = "removeSelectedDomain(ind)"></i>
+                    </div>
+                </div>
+                </div>
+                <div class="input-contents">
+                    <div class="select">
+                        <select name="" id="domainsToMail" (change)="domainsToMail()" formControlName = "selectedDomain">
+                            <option value="" selected>Select The Team</option>
+                            <option value="Impact Trainee">Impact Trainee</option>
+                            <option value="Internship">Internship</option>
+                            <option value="COE">COE</option>
+                            <option value="TN Team">TN Team</option>
+                            <option value="Individual">Individual</option>
+                            <option value="ALL">ALL</option>
+                        </select>
+                    </div>
+                    <div class="select" *ngIf="isShowIndividualList">
+                        <select name="" id="domains" (change)="impactTraineeMailList()" formControlName="subDomain">
+                            <option value="" selected>Select The Domain</option>
+                            <div class="option" *ngFor="let tech of technologyList; let ind = index">
+                            <option value="{{tech}}">{{tech}}</option>
+                            </div>
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mail-contents">
+                <div class="input-contents">
+                    <label for="" class="domainList">Cc</label>
+                    <div class="to-contents">
+                        <div class="content" *ngFor = "let Cc of selectedCcList; let ind = index">
+                            <label for="" >{{Cc.split(".")[0]}}</label>
+                            <i class="ph ph-x" (click) = "removeSelectedCc(ind)"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-contents">
+                    <div class="select">
+                        <select name="" id="CcOption" (change)="ccList()" formControlName = "selectedCc">
+                            <option value="" selected>Select The Mail</option>
+                            <div class="option" *ngFor="let detail of tnDetails; let ind = index">
+                            <option value="{{detail.Mail_Id}}">{{detail.Mail_Id}}</option>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mail-contents">
+                <div class="input-contents">
+                    <label for="" class="domainList">Bcc</label>
+                    <input type="text">
+                </div>
+                <div class="input-contents">
+                    <div class="select">
+                        <select name="" id="domainsToMail" (change)="domainsToMail()" formControlName = "selectedDomain">
+                            <option value="" selected>Select The Team</option>
+                            <option value="Impact Trainee">Impact Trainee</option>
+                            <option value="Internship">Internship</option>
+                            <option value="COE">COE</option>
+                            <option value="TN Team">TN Team</option>
+                            <option value="Individual">Individual</option>
+                            <option value="ALL">ALL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="mail-contents">
+                <input type="text" placeholder="Add a subject" formControlName="subject">
+            </div>
+            <div class="mail-contents">
+                <textarea name="" id="" cols="100" rows="5" placeholder="Add a content here" formControlName="mailContent"></textarea>
+            </div>
+            <div class="mail-contents">
+                <button>Discard</button>
+                <button (click)="selectedMailList(mailForm.value)">Send</button>
+            </div>
+
+        </form>
+    </div>
+</div>

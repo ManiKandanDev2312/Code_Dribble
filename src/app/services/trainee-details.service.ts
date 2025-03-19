@@ -58,7 +58,7 @@ export class TraineeDetailsService {
   }
   //this method is used to delete Impact Trainee Data
   deleteReviewDetails(Trainees:any){
-    this.http.post(environment.deleteInternship,Trainees, { responseType: 'text' }).subscribe(()=>{
+    this.http.post(environment.deleteReviewDetails,Trainees, { responseType: 'text' }).subscribe(()=>{
       console.log("successfully deleted");
     });
   }
@@ -131,9 +131,29 @@ export class TraineeDetailsService {
 // this method is used to store the review form details in the database
   reviewFormDetails(value:any){
     this.http.post(environment.reviewFormDetails, value, { responseType: 'text' }).subscribe(
-      (res)=>console.log("review form Details stored Successfully"),
+      (res)=>{
+        alert("Review Form Submitted");
+        window.location.reload();
+      },
       (error)=>console.log(error)
     )
+  }
+
+
+  // this method is used to send a mail
+  sendMail(mailDetails: any){
+    this.http.post(environment.sendMail,mailDetails, { responseType: 'text' }).subscribe(
+      (res) => {
+        alert("Mail Sent Successfully");
+        window.location.reload();
+      },
+      (err) => console.log(err)
+    )
+  }
+
+  //this method is used to retrieve the question bank
+  getQuestionBank(){
+    return this.http.get(environment.questionBank);
   }
 
 }

@@ -44,16 +44,16 @@ export class HomePageComponent {
   },{
     pageName:"Fresher Management",
     icon:"ph ph-student",
-    route:"impact-training",
+    route:"fresherManagement",
     downArrow:"ph ph-caret-down",
     subNavigationLinks:[
       {
       pageName:"Impact training",
-      route:"impact-training"
+      route:"fresherManagement/impact-training"
       },
       {
       pageName:"Internship",
-      route:"Internship"
+      route:"fresherManagement/Internship"
       },
       {
         pageName:"CoE Training",
@@ -72,24 +72,24 @@ export class HomePageComponent {
 {
   pageName:"Review Reports",
     icon:"ph ph-note-pencil",
-    route:"reviewPending",
+    route:"reviewReports",
     downArrow:"ph ph-caret-down",
     subNavigationLinks:[
       {
         pageName:"Review | Pending",
-        route:"reviewPending"
+        route:"reviewReports/reviewPending"
       },
       {
         pageName:"Review Form",
-        route:"reviewForm"
+        route:"reviewReports/reviewForm"
       },
       {
         pageName:"Review | Individual",
-        route:"cfgh"
+        route:"reviewReports/reviewIndividual"
       },
       {
         pageName:"Review | Trainee",
-        route:"cfgh"
+        route:"reviewReports/reviewTrainee"
       },
       {
         pageName:"Question Bank",
@@ -107,12 +107,12 @@ export class HomePageComponent {
 {
   pageName:"Notifications",
     icon:"ph ph-bell-ringing",
-    route:"fgh",
+    route:"Email",
     downArrow:"ph ph-caret-down",
     subNavigationLinks:[
       {
         pageName:"E-mail",
-        route:"cfgh"
+        route:"Email"
       }
     ]
 }
@@ -129,8 +129,8 @@ export class HomePageComponent {
 ]
 
 constructor(){
-  this.employeeName = JSON.stringify(sessionStorage.getItem("Employee_Name"));
-  this.employeeDesignation = JSON.stringify(sessionStorage.getItem("Employee_Designation"));
+  this.employeeName = sessionStorage.getItem("Employee_Name") ?? "";
+  this.employeeDesignation = sessionStorage.getItem("Employee_Designation") ?? "";
 }
 //this function is used to toggle the sub navigation links
 subNavLink(index:any){

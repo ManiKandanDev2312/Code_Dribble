@@ -17,6 +17,9 @@ import { InternshipComponent } from './Components/Internship/internship.componen
 import { TNStructureComponent } from './Components/tn-structure/tn-structure.component';
 import { ReviewPendingComponent } from './Components/review-pending/review-pending.component';
 import { ReviewFormComponent } from './Components/review-form/review-form.component';
+import { ReviewTraineeComponent } from './Components/review-trainee/review-trainee.component';
+import { EmailComponent } from './Components/email/email.component';
+import { ReviewIndividualComponent } from './Components/review-individual/review-individual.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { ReviewFormComponent } from './Components/review-form/review-form.compon
     InternshipComponent,
     TNStructureComponent,
     ReviewPendingComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    ReviewTraineeComponent,
+    EmailComponent,
+    ReviewIndividualComponent
   ],
   imports: [
     BrowserModule,

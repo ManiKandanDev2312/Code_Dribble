@@ -14,5 +14,8 @@ export const environment = {
     TNDetailsExcelFile:"http://localhost:3300/TNDetailsExcelToDatabase",
     deleteAllTNDetails:"http://localhost:3300/deleteAllTNDetails",
      deleteTNDetails: "http://localhost:3300/deleteTNDetails",
-     reviewFormDetails:"http://localhost:3300/reviewFormDetails"
+     reviewFormDetails:"http://localhost:3300/reviewFormDetails",
+     deleteReviewDetails:"http://localhost:3300/deleteReviewDetails",
+     sendMail:"http://localhost:3300/sendMail",
+     questionBank:"http://localhost:3300//questionBank"
 };

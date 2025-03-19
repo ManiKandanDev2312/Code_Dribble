@@ -132,7 +132,6 @@ export class ImpactTrainingPageComponent {
 
   // this method is used to filter the data
   filterData(value:any){
-    console.log(this.TNData);
         this.TNData = this.checkTNData;
       if(value.filterByKeyword != ''){
         let filtertedData = new Set<any>();

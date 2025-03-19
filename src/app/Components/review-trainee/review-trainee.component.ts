@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { TraineeDetailsService } from 'src/app/services/trainee-details.service';
 
 @Component({
-  selector: 'app-review-pending',
-  templateUrl: './review-pending.component.html',
-  styleUrls: ['./review-pending.component.css']
+  selector: 'app-review-trainee',
+  templateUrl: './review-trainee.component.html',
+  styleUrls: ['./review-trainee.component.css']
 })
-export class ReviewPendingComponent {
+export class ReviewTraineeComponent {
 TNData:any =[];
   checkTNData = [];
   checkboxIndex= 1;
@@ -93,15 +93,14 @@ TNData:any =[];
   clearForm(){
   }
 
-    // this method is used to show the file upload form
-    showFileUpload(){
-      if(this.showUploadFile){
-        this.showUploadFile = false;
-      }else{
-        this.showUploadFile = true;
-      }
+  // this method is used to show the file upload form
+  showFileUpload(){
+    if(this.showUploadFile){
+      this.showUploadFile = false;
+    }else{
+      this.showUploadFile = true;
     }
-
+  }
 
   // this method is used to select all the checkboxes
   clickAllCheckBoxes(){

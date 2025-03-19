@@ -9,6 +9,9 @@ import { InternshipComponent } from './Components/Internship/internship.componen
 import { TNStructureComponent } from './Components/tn-structure/tn-structure.component';
 import { ReviewPendingComponent } from './Components/review-pending/review-pending.component';
 import { ReviewFormComponent } from './Components/review-form/review-form.component';
+import { ReviewTraineeComponent } from './Components/review-trainee/review-trainee.component';
+import { EmailComponent } from './Components/email/email.component';
+import { ReviewIndividualComponent } from './Components/review-individual/review-individual.component';
 
 const routes: Routes = [
   {
@@ -33,11 +36,11 @@ const routes: Routes = [
       }
       ,
       {
-        path:"impact-training",
+        path:"fresherManagement/impact-training",
         component:ImpactTrainingPageComponent
       },
       {
-        path:"Internship",
+        path:"fresherManagement/Internship",
         component: InternshipComponent
       },
       {
@@ -45,12 +48,24 @@ const routes: Routes = [
         component: TNStructureComponent
       },
       {
-        path:"reviewPending",
+        path:"reviewReports/reviewPending",
         component: ReviewPendingComponent
       },
       {
-        path:"reviewForm",
+        path:"reviewReports/reviewForm",
         component: ReviewFormComponent
+      },
+      {
+        path:"reviewReports/reviewTrainee",
+        component: ReviewTraineeComponent
+      },
+      {
+        path:"reviewReports/reviewIndividual",
+        component: ReviewIndividualComponent
+      },
+      {
+        path:"Email",
+        component:EmailComponent
       }
 
     ]

@@ -47,7 +47,7 @@ export class ReviewFormComponent {
       REVIEW_DATE : value.reviewDate,
       OVERALL_PERFORMANCE : "",
       OVERALL_SCORE : "",
-      TECHNOLOGY : "",
+      TECHNOLOGY : value.technicalTopic,
       EMPLOYEE_EMAIL: sessionStorage.getItem('Employee_Email')
     }
     console.log(reviewFormDetails);

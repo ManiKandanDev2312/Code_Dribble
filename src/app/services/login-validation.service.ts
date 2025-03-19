@@ -16,12 +16,12 @@ export class LoginValidationService {
     this.http.get<any>(environment.TNDetails).subscribe((details)=>{
       const validation = details.find((employee:any)=>{
         this.employeeDetails = employee;
-        return value.EmployeeEmail === employee.MAIL_ID && value.EmployeePassword === employee.PASSWORD;
+        return value.EmployeeEmail === employee.Mail_Id && value.EmployeePassword === employee.PASSWORD;
       })
 
       if(validation){
         alert("successfully LoggedIn");
-        sessionStorage.setItem("Employee_Name",this.employeeDetails.FIRST_NAME);
+        sessionStorage.setItem("Employee_Name",this.employeeDetails.FIRST_NAME+" "+this.employeeDetails.LAST_NAME);
         sessionStorage.setItem("Employee_Designation",this.employeeDetails.DESIGNATION);
         sessionStorage.setItem("Employee_Email",this.employeeDetails.MAIL_ID);
         this.router.navigateByUrl("homePage");

@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { TraineeDetailsService } from 'src/app/services/trainee-details.service';
 
 @Component({
-  selector: 'app-review-pending',
-  templateUrl: './review-pending.component.html',
-  styleUrls: ['./review-pending.component.css']
+  selector: 'app-review-individual',
+  templateUrl: './review-individual.component.html',
+  styleUrls: ['./review-individual.component.css']
 })
-export class ReviewPendingComponent {
-TNData:any =[];
+export class ReviewIndividualComponent {
+  TNData:any =[];
   checkTNData = [];
+  questionBank : any = [];
+  filteredQuestionBank : any = [];
   checkboxIndex= 1;
   traineeDetail:any = {};
 
@@ -85,6 +87,10 @@ TNData:any =[];
        this.TNData = details;
        this.checkTNData = this.TNData;
     });
+    this.traineeDetailsService.getQuestionBank().subscribe((details)=>{
+       this.questionBank = details;
+    });
+
   }
 
 
@@ -217,8 +223,21 @@ TNData:any =[];
 
   // this method is used to show the individual details
   showTraineeDetails(index:any){
-    if(index >= 0)
+    this.filteredQuestionBank = [];
+    if(index >= 0){
       this.traineeDetail = this.TNData[index];
+      console.log(this.traineeDetail.TECHNICAL_ID);
+      let filterIndex = 0;
+      for(var i=0;i<this.questionBank.length;i++){
+        if(this.questionBank[i].TECHNOLOGY_ID == 15)
+          this.filteredQuestionBank[filterIndex++] = this.questionBank[i];
+      }
+      for(var i=0;i<this.questionBank.length;i++){
+        if(this.questionBank[i].TECHNOLOGY_ID == this.traineeDetail.TECHNICAL_ID)
+          this.filteredQuestionBank[filterIndex++] = this.questionBank[i];
+      }
+      console.log(this.filteredQuestionBank);
+    }
     console.log(this.traineeDetail);
     if(this.showTraineeList)
       this.showTraineeList = false;
