@@ -348,13 +348,52 @@ router.post("/sendMail",(req,res)=>{
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return console.log(`Error sending email to ${recipient}:`, error);
+    }else{
+        res.status(200).send(info.response);
+        console.log(`Email sent to ${recipient}:`, info.response);
     }
-    console.log(`Email sent to ${recipient}:`, info.response);
+    
   });
 
 })
 
 
+// this method is used to add the Data into Mongodb
+router.post("/addQuestion",(req,res)=>{
+    db.collection('questionBank').insertOne(req.body).then((traineeDetails)=>{
+     console.log(traineeDetails);
+     res.status(200).send(traineeDetails);
+    }).catch((error)=>{
+     res.status(400).send(error);
+    })
+ })
+// this method is used to add the Data into Mongodb
+router.post("/editQuestion",(req,res)=>{
+    console.log(req.body);
+    const { _id, ...updateData } = req.body;
+    if (!_id) {
+        return res.status(400).send({ message: "Missing _id in request body" });
+    }
+
+    db.collection('questionBank').updateOne({ _id: new ObjectId(_id) }, { $set: updateData }).then((traineeDetails)=>{
+     console.log(traineeDetails);
+     res.status(200).send(traineeDetails);
+    }).catch((error)=>{
+     res.status(400).send(error);
+    })
+ })
+
+ // this method is used to delete the Data from Impact trainee Details
+router.post("/deleteQuestion",(req,res)=>{
+    console.log(req.body._id);
+    const traineeId = new ObjectId(req.body._id);
+    db.collection('questionBank').findOneAndDelete({_id: traineeId}).then(()=>{
+        res.status(200).send("successfully deleted");
+    }).catch((error)=>{
+        console.log(error);
+        res.status(400).send(error);
+    })
+})
 
 // this line is exporting the router
 module.exports = router;
