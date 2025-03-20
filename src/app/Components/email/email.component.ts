@@ -60,8 +60,8 @@ export class EmailComponent {
     this.employeeList = [...this.impactTraineeList,...this.internList];
 
     for(var i = 0; i< this.employeeList.length; i++){
-      if(this.employeeList[i].Technology !== undefined)
-      this.technologyList.add(this.employeeList[i].Technology);
+      if(this.employeeList[i].Practice !== undefined)
+      this.technologyList.add(this.employeeList[i].Practice);
     }
 
     console.log(this.technologyList);

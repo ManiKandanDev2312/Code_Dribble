@@ -156,4 +156,21 @@ export class TraineeDetailsService {
     return this.http.get(environment.questionBank);
   }
 
+
+  addQuestion(question:any){
+    return this.http.post(environment.addQuestion,question,{responseType : 'text'});
+  }
+  editQuestion(question:any){
+    return this.http.post(environment.editQuestion,question,{responseType : 'text'});
+  }
+  deleteQuestion(question:any){
+    this.http.post(environment.deleteQuestion,question,{responseType : 'text'}).subscribe((res)=>{
+      alert("successfully deleted");
+      window.location.reload();
+    },(error)=>{
+      console.log(error);
+    }
+  );
+  }
+
 }

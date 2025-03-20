@@ -17,5 +17,8 @@ export const environment = {
      reviewFormDetails:"http://localhost:3300/reviewFormDetails",
      deleteReviewDetails:"http://localhost:3300/deleteReviewDetails",
      sendMail:"http://localhost:3300/sendMail",
-     questionBank:"http://localhost:3300//questionBank"
+     questionBank:"http://localhost:3300/questionBank",
+     addQuestion:"http://localhost:3300/addQuestion",
+     editQuestion:"http://localhost:3300/editQuestion",
+     deleteQuestion:"http://localhost:3300/deleteQuestion",
 };

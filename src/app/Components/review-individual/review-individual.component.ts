@@ -229,11 +229,12 @@ export class ReviewIndividualComponent {
       console.log(this.traineeDetail.TECHNICAL_ID);
       let filterIndex = 0;
       for(var i=0;i<this.questionBank.length;i++){
-        if(this.questionBank[i].TECHNOLOGY_ID == 15)
+        if(this.questionBank[i].TECHNOLOGY_NAME == "Soft Skills")
           this.filteredQuestionBank[filterIndex++] = this.questionBank[i];
       }
+      console.log(this.traineeDetail);
       for(var i=0;i<this.questionBank.length;i++){
-        if(this.questionBank[i].TECHNOLOGY_ID == this.traineeDetail.TECHNICAL_ID)
+        if(this.questionBank[i].TECHNOLOGY_NAME.toLowerCase() == this.traineeDetail.TECHNOLOGY.toLowerCase())
           this.filteredQuestionBank[filterIndex++] = this.questionBank[i];
       }
       console.log(this.filteredQuestionBank);

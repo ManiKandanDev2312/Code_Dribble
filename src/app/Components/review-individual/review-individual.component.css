@@ -423,6 +423,7 @@ form{
 
 .scroll-content-2{
     height: 360px;
+    padding-bottom: 50px;
     overflow-y: scroll;
 }
 
@@ -442,7 +443,7 @@ form{
 
 .inner-TraineeDetails table tr{
     display: flex;
-    height: 30px;
+    height: 60px;
 }
 
 .inner-TraineeDetails table tr td{

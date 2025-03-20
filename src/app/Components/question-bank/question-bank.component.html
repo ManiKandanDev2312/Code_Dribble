@@ -1,0 +1,174 @@
+<!-- 
+ 
+Team Name : L & D Interstellar
+Project Name : Code Dribble
+Started Date : 20-03-2025
+Expected End Date : 20-03-2025
+Description: this component is used for Review details of each Individual.
+
+
+-->
+
+<!-- this view is visualize the Pending Review Data -->
+<div class="TN-management" *ngIf="!showTraineeList">
+    <div class="inner-TNmanagement">
+        <h2>Question Bank</h2>
+    </div>
+    <div class="inner-TNmanagement">
+        <h4>Question Bank</h4>
+    </div>
+    <div class="inner-TNmanagement">
+        <div class="inner-contents">
+            <i class="ph ph-magnifying-glass"></i>
+            <form [formGroup]="KeywordForm">
+            <input type="text" placeholder="Search by Keyword" formControlName="filterByKeyword" [(ngModel)]="filterByKeyword"/>
+            </form>
+        </div>
+        <div class="inner-contents">
+            <div class="inner-functionalites">
+                <div class="function-buttons">
+                    <button *ngIf="questionBank.length < 10"> Questions : 0{{questionBank.length}}</button>
+                    <button *ngIf="questionBank.length >= 10"> Questions : {{questionBank.length}}</button>
+                </div>
+                <div class="function-buttons">
+                    <button><i class="ph ph-download-simple"></i></button>
+                </div>
+                <div class="function-buttons">
+                    <button (click)=" deleteAllMembers()"><i class="ph ph-trash"></i></button>
+                </div>
+
+            </div>
+            <div class="inner-functionalites">
+                <div class="functionality-buttons">
+                    <button (click)="showQuestion()"><i class="ph ph-plus"></i> Add Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inner-TNmanagement">
+       <table>
+        <tr class="table-header">
+            <th (click)="clickAllCheckBoxes()"><input type="checkbox" id="parentCheckBox"></th>
+            <th class="data">Technology <i class="ph ph-funnel-simple"></i></th>
+            <th class="data">Topic <i class="ph ph-funnel-simple"></i></th>
+            <th class="data">Objective <i class="ph ph-funnel-simple"></i></th>
+            <th class="data">Weightage <i class="ph ph-funnel-simple"></i></th>
+            <th class="data">Action <i class="ph ph-funnel-simple"></i></th>
+        </tr>
+        <!-- <tr class="table-row">
+            <td><input type="checkbox"></td>
+            <td><input type="text" placeholder="Filter by ACE ID"  [(ngModel)]="filterByACEID"> <i class="ph ph-magnifying-glass"></i></td>
+            <td><input type="text" placeholder="Filter by First Name" [(ngModel)]="filterByFirstName"> <i class="ph ph-magnifying-glass"></i></td>
+            <td><input type="text" placeholder="Filter by Last Name" [(ngModel)]="filterByLastName"> <i class="ph ph-magnifying-glass"></i></td>
+            <td><input type="text" placeholder="Filter by Designation" [(ngModel)]="filterByDesignation"> <i class="ph ph-magnifying-glass"></i></td>
+            <td><input type="text" placeholder="Filter by Team" [(ngModel)]="filterByTeam"> <i class="ph ph-magnifying-glass"></i></td>
+            <td><input type="text" placeholder="Filter by ACE ID"> <i class="ph ph-magnifying-glass"></i></td>
+        </tr> -->
+        <tr *ngIf="questionBank.length==0" class="nodata">
+            <td> No Data Found</td>
+        </tr>
+        <div class="scroll-content">
+        <tr class="table-data" *ngFor="let question of questionBank;let i=index">
+            <td><input type="checkbox" [id]="'checkbox'+i"></td>
+            <td class="data" title="{{question.TECHNOLOGY}}">{{question.TECHNOLOGY_NAME}}</td>
+            <td class="data" title="{{question.TOPIC}}">{{question.TOPIC}}</td>
+            <td class="data" title="{{question.OBJECTIVE}}">{{question.OBJECTIVE}}</td>
+            <td class="data" title="{{question.WEIGHTAGE}}">{{question.WEIGHTAGE}}</td>
+            <td class="data">
+                <button (click)="showEditQuestion(i)"><i class="ph ph-pencil-simple"></i></button>
+                <button (click)="deleteQuestion(i)"><i class="ph ph-trash"></i></button>
+            </td>
+        </tr>
+    </div>
+        
+       </table>
+    </div>
+</div>
+
+
+
+<!-- this visualize the Edit Member Form -->
+<div class="Member-Management" *ngIf="showEditMember">
+    <div class="inner-Membermanagement">
+        <form [formGroup]="editQuestionForm">
+            <div class="formcontrols">
+                <div class="inner-formcontrols">
+                    <h2>Edit Question</h2>
+                </div>
+                <div class="inner-formcontrols" (click)="showEdit()">
+                    <i class="ph ph-x"></i>
+                </div>
+            </div>
+            <div class="formcontrols">
+                <div class="inner-formcontrols">
+                    <input type="text" placeholder="Objective" formControlName="OBJECTIVE" />
+                </div>
+                <div class="inner-formcontrols">
+                    <input type="text" placeholder="Topic" formControlName="TOPIC" />
+                </div>
+            </div>
+            <div class="formcontrols">
+                <div class="inner-formcontrols">
+                    <select name="" id="" formControlName="TECHNOLOGY_NAME">
+                        <option value="" selected>Select the Technology</option>
+                        <div class="options" *ngFor = "let Technology of technologyList">
+                            <option value="{{Technology}}">{{Technology}}</option>
+                        </div>
+                    </select>
+                </div>
+                <div class="inner-formcontrols">
+                    <input type="text" placeholder="Weightage" formControlName="WEIGHTAGE" />
+                </div>
+            </div>
+            <div class="formcontrols">
+                <div class="inner-formcontrols"><button><i class="ph ph-prohibit"></i> Cancel</button></div>
+                <div class="inner-formcontrols"><button [disabled]="!editQuestionForm.valid" (click)="editQuestion(editQuestionForm.value)"> Submit</button></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+<!-- this visualize the ADD Question Form -->
+<div class="Member-Management" *ngIf="showAddQuestion">
+    <div class="inner-Membermanagement">
+        <form [formGroup]="questionForm">
+            <div class="formcontrols">
+                <div class="inner-formcontrols">
+                    <h2>Add Question</h2>
+                </div>
+                <div class="inner-formcontrols" (click)="showQuestion()">
+                    <i class="ph ph-x"></i>
+                </div>
+            </div>
+            <div class="formcontrols">
+                <div class="inner-formcontrols">
+                    <input type="text" placeholder="Objective" formControlName="OBJECTIVE" />
+                </div>
+                <div class="inner-formcontrols">
+                    <input type="text" placeholder="Topic" formControlName="TOPIC" />
+                </div>
+            </div>
+            <div class="formcontrols">
+                <div class="inner-formcontrols">
+                    <select name="" id="" formControlName="TECHNOLOGY_NAME">
+                        <option value="" selected>Select the Technology</option>
+                        <div class="options" *ngFor = "let Technology of technologyList">
+                            <option value="{{Technology}}">{{Technology}}</option>
+                        </div>
+                    </select>
+                </div>
+                <div class="inner-formcontrols">
+                    <input type="text" placeholder="Weightage" formControlName="WEIGHTAGE" />
+                </div>
+            </div>
+            <div class="formcontrols">
+                <div class="inner-formcontrols"><button><i class="ph ph-prohibit"></i> Cancel</button></div>
+                <div class="inner-formcontrols"><button [disabled]="!questionForm.valid" (click)="addQuestion(questionForm.value)"><i class="ph ph-plus"></i> Add</button></div>
+            </div>
+
+        </form>
+    </div>
+</div>

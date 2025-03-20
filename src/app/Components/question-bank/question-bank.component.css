@@ -117,7 +117,7 @@ border: 1px solid var(--secondary-color);
     background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
-    width: 960px;
+    width: 100%;
 }
 
 .inner-TNmanagement table tr{
@@ -127,7 +127,6 @@ border: 1px solid var(--secondary-color);
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     padding: 10px 0px 10px 0px;
-    height: 70px;
 }
 
 .table-data input[type="checkbox"]{
@@ -179,19 +178,14 @@ border: 1px solid var(--secondary-color);
     width: 100px;
 }
 .data:nth-child(3){
-    width: 130px;
+    width: 230px;
 }
 .data:nth-child(4){
-    width: 150px;
+    width: 270px;
     text-transform: none;
 }
+
 .data:nth-child(5){
-    width: 100px;
-}
-.data:nth-child(6){
-    width: 90px;
-}
-.data:nth-child(7){
     justify-content: center;
 }
 
@@ -345,162 +339,13 @@ form{
     justify-content: center;
 }
 
-
-.showTraineeDetails{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 30px;
-    
-}
-
-
-
-.inner-TraineeDetails:nth-child(1){
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.inner-TraineeDetails h2{
-    font-size: 1.8vw;
-    font-weight: 500;
-}
-
-.inner-TraineeDetails button{
-    width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.inner-formcontrols select{
     height: 40px;
-    gap: 10px;
-    font-size: 1.4vw;
-    color: var(--secondary-color);
-    border: 1px solid var(--secondary-color);
-    background-color: var(--primary-color);
-    cursor: pointer;
+    width: 350px;
     border-radius: 10px;
-}
-
-.inner-TraineeDetails:nth-child(2){
-    background-color: var(--primary-color);
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    flex-wrap: wrap;
-    height: 420px;
-}
-
-
-.inner-TraineeDetails:nth-child(2) img{
-    width: 150px;
-    height: 150px;
-}
-.TraineeDetails{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
-.inner-TraineeDetail p{
-    font-size: 1.2vw;
+    outline: none;
+    border: 1px solid var(--tertiary-color);
+    padding-left: 10px;
     text-transform: capitalize;
-}
-.inner-TraineeDetail label{
-    font-size: 1vw;
-    text-transform: capitalize;
-    color: var(--secondary-color);
-}
-
-
-.inner-TraineeDetails table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.scroll-content-2{
-    height: 360px;
-    padding-bottom: 50px;
-    overflow-y: scroll;
-}
-
-.scroll-content-2::-webkit-scrollbar{
-    width: 5px;
-}
-
-.scroll-content-2::-webkit-scrollbar-track{
-    background-color: var(--primary-color);
-   
-}
-
-.scroll-content-2::-webkit-scrollbar-thumb{
-    background-color: var(--secondary-color);
-    border-radius: 5px;
-}
-
-.inner-TraineeDetails table tr{
-    display: flex;
-}
-
-.inner-TraineeDetails table tr td{
-    height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 60px;
-}
-.inner-TraineeDetails table tr th{
-    height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-}
-
-.inner-TraineeDetails td label{
-    font-size: 1vw;
-    text-transform: capitalize;
-    color: var(--secondary-color);
-}
-.inner-TraineeDetails td p{
-    font-size: 1.2vw;
-    text-transform: capitalize;
-}
-.inner-TraineeDetails table tr th:nth-child(1){
-    width: 350px;
-}
-.inner-TraineeDetails table tr th:nth-child(2){
-    width: 400px;
-}
-.inner-TraineeDetails table tr th:nth-child(3){
-    width: 100px;
-}
-.inner-TraineeDetails table tr th:nth-child(4){
-    width: 100px;
-}
-.inner-TraineeDetails table tr td:nth-child(1){
-    width: 350px;
-    font-weight: bold;
-}
-.inner-TraineeDetails table tr td:nth-child(2){
-    width: 400px;
-}
-.inner-TraineeDetails table tr td:nth-child(3){
-    width: 100px;
-}
-.inner-TraineeDetails table tr td:nth-child(4){
-    width: 100px;
-}
-.inner-TraineeDetails table tr td input{
-    width: 50px;
-    height: 40px;
-    padding-left: 15px;
+    color: var(--tertiary-color);
 }

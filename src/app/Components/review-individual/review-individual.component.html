@@ -12,10 +12,10 @@ Description: this component is used for Review details of each Individual.
 <!-- this view is visualize the Pending Review Data -->
 <div class="TN-management" *ngIf="!showTraineeList">
     <div class="inner-TNmanagement">
-        <h2>Review - Pending</h2>
+        <h2>Review - Individual</h2>
     </div>
     <div class="inner-TNmanagement">
-        <h4>Review - Pending</h4>
+        <h4>Review - Individual</h4>
     </div>
     <div class="inner-TNmanagement">
         <div class="inner-contents">
@@ -225,9 +225,34 @@ Description: this component is used for Review details of each Individual.
                     <label for="">{{question.TOPIC}}</label>
                 </td>
                 <td>
+                    <p>{{question.OBJECTIVE}}</p>
                 </td>
                 <td>
                     <p>{{question.WEIGHTAGE}}</p>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Overall Score</label>
+                </td>
+                <td>
+                    <p>{{traineeDetail.OVERALL_SCORE}}</p>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Overall Performance</label>
+                </td>
+                <td>
+                    <p>{{traineeDetail.OVERALL_PERFORMANCE}}</p>
+                </td>
+                <td>
                 </td>
                 <td>
                 </td>

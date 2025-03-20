@@ -20,6 +20,7 @@ import { ReviewFormComponent } from './Components/review-form/review-form.compon
 import { ReviewTraineeComponent } from './Components/review-trainee/review-trainee.component';
 import { EmailComponent } from './Components/email/email.component';
 import { ReviewIndividualComponent } from './Components/review-individual/review-individual.component';
+import { QuestionBankComponent } from './Components/question-bank/question-bank.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ReviewIndividualComponent } from './Components/review-individual/review
     ReviewFormComponent,
     ReviewTraineeComponent,
     EmailComponent,
-    ReviewIndividualComponent
+    ReviewIndividualComponent,
+    QuestionBankComponent
   ],
   imports: [
     BrowserModule,

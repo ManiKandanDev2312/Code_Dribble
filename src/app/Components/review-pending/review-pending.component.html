@@ -142,7 +142,7 @@ Description: this component is used for Review Pending.
 <div class="showTraineeDetails" *ngIf="showTraineeList">
     <div class="inner-TraineeDetails">
         <div class="inner-TNmanagement">
-            <h2>Impact Trainee</h2>
+            <h2>Edit Score</h2>
         </div>
         <div class="inner-TNmanagement">
             <button (click)="showTraineeDetails(-1)"><i class="ph ph-rewind"></i>Back</button>
@@ -150,183 +150,132 @@ Description: this component is used for Review Pending.
     </div>
     <div class="inner-TraineeDetails">
         <div class="TraineeDetails">
-                <img src="./assets/Dashboard/DashboardProfile.svg" alt="profileImage">
+            <table>
+                <tr>
+                    <th>Topic</th>
+                    <th>Objective</th>
+                    <th>Weightage</th>
+                    <th>Score</th>
+                </tr>
+                <div class="scroll-content-2">
+                <tr>
+                    <td>
+                        <label for="">Technology</label>
+                        
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.TECHNOLOGY}}</p>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Reviewer Name</label>
+                        
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.REVIEWER_NAME}}</p>
+                      
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Trainee Name</label>
+                       
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.TRAINEE_NAME}}</p>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Mentor Name</label>
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.MENTOR_NAME}}</p>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">TN Team</label>
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.TN_TEAM}}</p>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr *ngFor = "let question of filteredQuestionBank;let ind = index">
+                    <td>
+                        <label for="">{{question.TOPIC}}</label>
+                    </td>
+                    <td>
+                        <p>{{question.OBJECTIVE}}</p>
+                    </td>
+                    <td>
+                        <p>{{question.WEIGHTAGE}}</p>
+                    </td>
+                    <td>
+                        <input type="number" Value="0" [id]="'score'+ind">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Overall Score</label>
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.OVERALL_SCORE}}</p>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Overall Performance</label>
+                    </td>
+                    <td>
+                        <p>{{traineeDetail.OVERALL_PERFORMANCE}}</p>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button>Cancel</button>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <button (click)="saveScore()">Submit</button>
+                    </td>
+                </tr>
+            </div>
+            </table>
         </div>
-    <div class="TraineeDetails">
-        <table>
-            <div class="scroll-content-2">
-            <tr>
-                <td>
-                    <label for="">ACE ID</label>
-                    <p>{{traineeDetail.ACE_ID}}</p>
-                </td>
-                <td>
-                    <label for="">Name</label>
-                    <p>{{traineeDetail.NAME}}</p>
-                </td>
-                <td>
-                    <label for="">professional Mail ID</label>
-                    <p>{{traineeDetail.Mail_Id}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Department</label>
-                    <p>{{traineeDetail.Department}}</p>
-                </td>
-                <td>
-                    <label for="">Date of joining</label>
-                    <p>{{traineeDetail.Date_of_Joining | excelDatePipe}}</p>
-                </td>
-                <td>
-                    <label for="">personal Mail ID</label>
-                    <p>{{traineeDetail.Personal_Email_id}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">location</label>
-                    <p>{{traineeDetail.Location}}</p>
-                </td>
-                <td>
-                    <label for="">contact number</label>
-                    <p>{{traineeDetail.Contact_Num}}</p>
-                </td>
-                <td>
-                    <label for="">college Name</label>
-                    <p>{{traineeDetail.College}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Gender</label>
-                    <p>{{traineeDetail.Gender}}</p>
-                </td>
-                <td>
-                    <label for="">TN HR Partner</label>
-                    <p>{{traineeDetail.TN_HR_Partner}}</p>
-                </td>
-                <td>
-                    <label for="">Qualification</label>
-                    <p>{{traineeDetail.Qualification}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Designation</label>
-                    <p>{{traineeDetail.Designation}}</p>
-                </td>
-                <td>
-                    <label for="">Track</label>
-                    <p>{{traineeDetail.Track}}</p>
-                </td>
-                <td>
-                    <label for="">COE/Campus/Off Campus</label>
-                    <p>{{traineeDetail.COE_Campus_Off_Campus}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Practice</label>
-                    <p>{{traineeDetail.Practice}}</p>
-                </td>
-                <td>
-                    <label for="">Sub Practice</label>
-                    <p>{{traineeDetail.Sub_Practice}}</p>
-                </td>
-                <td>
-                    <label for="">Active/Exit</label>
-                    <p>{{traineeDetail.Active_Exit}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Practice IDM</label>
-                    <p>{{traineeDetail.Practice_IDM}}</p>
-                </td>
-                <td>
-                    <label for="">Movement Initiated</label>
-                    <p>{{traineeDetail.Movement_Initiated}}</p>
-                </td>
-                <td>
-                    <label for="">Date of Movement</label>
-                    <p>{{traineeDetail.Date_of_Movement | excelDatePipe}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Technology</label>
-                    <p>{{traineeDetail.Technology}}</p>
-                </td>
-                <td>
-                    <label for="">TN Review Score</label>
-                    <p>{{traineeDetail.TN_Review_Score}}</p>
-                </td>
-                <td>
-                    <label for="">TN Review Conducted</label>
-                    <p>{{traineeDetail.TN_Review_Conducted}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">TN Review Feedback</label>
-                    <p>{{traineeDetail.TN_Review_Feedback}}</p>
-                </td>
-                <td>
-                    <label for="">Follow Up TN Review</label>
-                    <p>{{traineeDetail.Follow_Up_TN_Review}}</p>
-                </td>
-                <td>
-                    <label for="">Follow Up TN Feedback</label>
-                    <p>{{traineeDetail.Follow_Up_TN_Feedback}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">SL Review Conducted</label>
-                    <p>{{traineeDetail.SL_Review_Conducted}}</p>
-                </td>
-                <td>
-                    <label for="">SL Review Score</label>
-                    <p>{{traineeDetail.SL_Review_Score}}</p>
-                </td>
-                <td>
-                    <label for="">SL Review Feedback</label>
-                    <p>{{traineeDetail.SL_Review_Feedback}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">No Of Days in TN</label>
-                    <p>{{traineeDetail.No_of_days_in_TN}}</p>
-                </td>
-                <td>
-                    <label for="">Resignation Type</label>
-                    <p>{{traineeDetail.Resignation_Type}}</p>
-                </td>
-                <td>
-                    <label for="">Reason For Exit</label>
-                    <p>{{traineeDetail.Reason_for_Exit}}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="">Releiving Date</label>
-                    <p>{{traineeDetail.Releiving_Date | excelDatePipe}}</p>
-                </td>
-                <td>
-                    <label for="">Project Name</label>
-                    <p>{{traineeDetail.Project_Name}}</p>
-                </td>
-                <td>
-                    <label for="">Moved Date</label>
-                    <p>{{traineeDetail.Moved_Date | excelDatePipe}}</p>
-                </td>
-            </tr>
         </div>
-        </table>
-    </div>
-    </div>
 </div>
 
 

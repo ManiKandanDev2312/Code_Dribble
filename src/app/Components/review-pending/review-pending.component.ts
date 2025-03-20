@@ -13,6 +13,8 @@ TNData:any =[];
   checkTNData = [];
   checkboxIndex= 1;
   traineeDetail:any = {};
+  filteredQuestionBank: any = [];
+  questionBank : any = [];
 
   selectedFile: File | null = null;
 
@@ -85,6 +87,9 @@ TNData:any =[];
        this.TNData = details;
        this.checkTNData = this.TNData;
     });
+    this.traineeDetailsService.getQuestionBank().subscribe((details)=>{
+      this.questionBank = details;
+   });
   }
 
 
@@ -215,16 +220,6 @@ TNData:any =[];
   }
 
 
-  // this method is used to show the individual details
-  showTraineeDetails(index:any){
-    if(index >= 0)
-      this.traineeDetail = this.TNData[index];
-    console.log(this.traineeDetail);
-    if(this.showTraineeList)
-      this.showTraineeList = false;
-    else
-    this.showTraineeList = true;
-  }
 
   // this method is used to catch the file from the form
   onFileChange(event:any){
@@ -238,5 +233,38 @@ TNData:any =[];
   //this method is used to upload the file
   uploadFile(){
     this.traineeDetailsService.reviewDetailsSendExcelFile(this.selectedFile);
+  }
+  // this method is used to show the individual details
+  showTraineeDetails(index:any){
+    this.filteredQuestionBank = [];
+    if(index >= 0){
+      this.traineeDetail = this.TNData[index];
+      console.log(this.traineeDetail.TECHNICAL_ID);
+      let filterIndex = 0;
+      for(var i=0;i<this.questionBank.length;i++){
+        if(this.questionBank[i].TECHNOLOGY_NAME == "Soft Skills")
+          this.filteredQuestionBank[filterIndex++] = this.questionBank[i];
+      }
+      for(var i=0;i<this.questionBank.length;i++){
+        if(this.questionBank[i].TECHNOLOGY_NAME.toLowerCase() == this.traineeDetail.TECHNOLOGY.toLowerCase())
+          this.filteredQuestionBank[filterIndex++] = this.questionBank[i];
+      }
+    }
+    if(this.showTraineeList)
+      this.showTraineeList = false;
+    else
+    this.showTraineeList = true;
+  }
+
+
+  saveScore(){
+    const MarksList = [];
+    console.log(this.filteredQuestionBank);
+    for(var i =0; this.filteredQuestionBank.length; i++){
+      const marks = document.getElementById("score"+i) as HTMLInputElement;
+      MarksList[i] = marks?.value;
+    }
+    console.log(MarksList);
+    // alert("score Saved successfully");
   }
 }

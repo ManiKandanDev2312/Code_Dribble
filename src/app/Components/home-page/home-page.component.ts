@@ -93,7 +93,7 @@ export class HomePageComponent {
       },
       {
         pageName:"Question Bank",
-        route:"cfgh"
+        route:"reviewReports/questionBank"
       }
     ]
 },
