@@ -15,6 +15,10 @@ reviewDetails:any =[];
   traineeDetail:any = {};
   filteredQuestionBank: any = [];
   questionBank : any = [];
+  impactTraineeDetails: any = [];
+  internshipDetails : any = [];
+  TNTeamDetails : any = [];
+  employeeDetails : any = [];
 
   selectedFile: File | null = null;
 
@@ -98,6 +102,19 @@ reviewDetails:any =[];
     this.traineeDetailsService.getQuestionBank().subscribe((details)=>{
       this.questionBank = details;
    });
+    this.traineeDetailsService.impactTraineeDetails().subscribe((details)=>{
+      this.impactTraineeDetails = details;
+      this.employeeDetails.push(...this.impactTraineeDetails);
+   });
+    this.traineeDetailsService.internshipDetails().subscribe((details)=>{
+      this.internshipDetails = details;
+      this.employeeDetails.push(...this.internshipDetails);
+   });
+    this.traineeDetailsService.TNDetails().subscribe((details)=>{
+      this.TNTeamDetails = details;
+      this.employeeDetails.push(...this.TNTeamDetails);
+   });
+   
   }
 
 
@@ -266,6 +283,7 @@ reviewDetails:any =[];
 
 
   saveScore(){
+    console.log(this.employeeDetails.length);
     const MarksList = [];
     var sumMarks = 0;
     var weightageSum =0;
@@ -287,25 +305,36 @@ reviewDetails:any =[];
       overallPerformance = "Average";
     else{
       overallPerformance = "Needs Improvement";
-    let aiSuggestionList:any = [];
-    for(var i=0; i<this.filteredQuestionBank.length;i++){
-        aiSuggestionList[i].push({
-            Technical_Topic: this.filteredQuestionBank[i].TOPIC,
-            Objective: this.filteredQuestionBank[i].OBJECTIVE,
-            Maximum: this.filteredQuestionBank[i].WEIGHTAGE,
-            Awarded: MarksList[i]
-        })
-    }
-      this.traineeDetailsService.aiSuggestion(aiSuggestionList);
+      let emailCCList:any = [];
+      let emailTo:any = "";
+      let emailIndex = 0;
+      for(var i=0;i<this.employeeDetails.length;i++){
+        if(this.employeeDetails[i].ACE_ID == this.traineeDetail.MENTOR_ID || this.employeeDetails[i].ACE_ID == this.traineeDetail.REVIEWER_ID || this.employeeDetails[i].ACE_ID == this.traineeDetail.TN_TEAM_ID){
+          emailCCList[emailIndex++] = this.employeeDetails[i].Mail_Id;
+        }else if(this.employeeDetails[i].ACE_ID == this.traineeDetail.TRAINEE_ID || this.employeeDetails[i].INT_ID == this.traineeDetail.TRAINEE_ID){
+          emailTo= this.employeeDetails[i].Mail_Id;
+        }
+      }
+      console.log(emailCCList);
+    // let aiSuggestionList:any = [];
+    // for(var i=0; i<this.filteredQuestionBank.length;i++){
+    //     aiSuggestionList[i].push({
+    //         Technical_Topic: this.filteredQuestionBank[i].TOPIC,
+    //         Objective: this.filteredQuestionBank[i].OBJECTIVE,
+    //         Maximum: this.filteredQuestionBank[i].WEIGHTAGE,
+    //         Awarded: MarksList[i]
+    //     })
+    // }
+    // this.traineeDetailsService.aiSuggestion(aiSuggestionList);
     }
      
     const finalUpdate = Object.assign(this.traineeDetail,{OVERALL_SCORE: sumMarks,OVERALL_PERFORMANCE: overallPerformance,MARKS_LIST:MarksList});
-    this.traineeDetailsService.updateMarks(finalUpdate).subscribe((res)=>{
-      alert("marks updated");
-      window.location.reload();
-    },(error)=>{
-      console.log(error);
-    }
-  )
+  //   this.traineeDetailsService.updateMarks(finalUpdate).subscribe((res)=>{
+  //     alert("marks updated");
+  //     window.location.reload();
+  //   },(error)=>{
+  //     console.log(error);
+  //   }
+  // )
   }
 }
