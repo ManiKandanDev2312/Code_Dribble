@@ -85,6 +85,7 @@ export class ReviewIndividualComponent {
   retrieveReviewDetails(){
     this.traineeDetailsService.reviewDetails().subscribe((details)=>{
        this.TNData = details;
+       console.log(this.TNData);
        this.checkTNData = this.TNData;
     });
     this.traineeDetailsService.getQuestionBank().subscribe((details)=>{
@@ -222,11 +223,11 @@ export class ReviewIndividualComponent {
 
 
   // this method is used to show the individual details
-  showTraineeDetails(index:any){
+  showTraineeDetails(index:any,details:any){
     this.filteredQuestionBank = [];
     if(index >= 0){
-      this.traineeDetail = this.TNData[index];
-      console.log(this.traineeDetail.TECHNICAL_ID);
+      this.traineeDetail = details;
+      console.log(this.traineeDetail);
       let filterIndex = 0;
       for(var i=0;i<this.questionBank.length;i++){
         if(this.questionBank[i].TECHNOLOGY_NAME == "Soft Skills")

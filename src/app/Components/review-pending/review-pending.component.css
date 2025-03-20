@@ -495,9 +495,15 @@ form{
 }
 .inner-TraineeDetails table tr td:nth-child(3){
     width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .inner-TraineeDetails table tr td:nth-child(4){
     width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .inner-TraineeDetails table tr td input{
     width: 50px;

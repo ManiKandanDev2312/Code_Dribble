@@ -9,8 +9,8 @@ import { TraineeDetailsService } from 'src/app/services/trainee-details.service'
   styleUrls: ['./review-pending.component.css']
 })
 export class ReviewPendingComponent {
-TNData:any =[];
-  checkTNData = [];
+reviewDetails:any =[];
+  checkreviewDetails = [];
   checkboxIndex= 1;
   traineeDetail:any = {};
   filteredQuestionBank: any = [];
@@ -84,8 +84,16 @@ TNData:any =[];
   //this method is used to retrieve the Trainee Data
   retrieveReviewDetails(){
     this.traineeDetailsService.reviewDetails().subscribe((details)=>{
-       this.TNData = details;
-       this.checkTNData = this.TNData;
+       this.reviewDetails = details;
+       for(var i =0;i<this.reviewDetails.length;i++){
+        const keys = Object.keys(this.reviewDetails[i]);
+        for(var j = 0;j< keys.length;j++){
+          if(keys[j] == "MARKS_LIST"){
+            this.reviewDetails.splice(j,1);
+          }
+        }
+       }
+       this.checkreviewDetails = this.reviewDetails;
     });
     this.traineeDetailsService.getQuestionBank().subscribe((details)=>{
       this.questionBank = details;
@@ -110,7 +118,7 @@ TNData:any =[];
 
   // this method is used to select all the checkboxes
   clickAllCheckBoxes(){
-    for(var i=0;i<this.TNData.length;i++){
+    for(var i=0;i<this.reviewDetails.length;i++){
       const checkbox = document.getElementById("checkbox"+i) as HTMLInputElement;
       if(this.checkboxIndex == 1){
         checkbox.checked = true;
@@ -128,35 +136,35 @@ TNData:any =[];
 
   // this method is used to filter the data
   filterData(value:any){
-    console.log(this.TNData);
-        this.TNData = this.checkTNData;
+    console.log(this.reviewDetails);
+        this.reviewDetails = this.checkreviewDetails;
       if(value.filterByKeyword != ''){
         let filtertedData = new Set<any>();
-        for(var i=0;i<this.TNData.length;i++){
-          var data = Object.values(this.TNData[i]);
+        for(var i=0;i<this.reviewDetails.length;i++){
+          var data = Object.values(this.reviewDetails[i]);
           for(var j=0;j<data.length;j++){
             var checkData = String(data[j]).toLowerCase();
           if(checkData.includes(value.filterByKeyword.toLowerCase())){
-            filtertedData.add(this.TNData[i]);
+            filtertedData.add(this.reviewDetails[i]);
           }
         }
         }
 
 
         if(filtertedData.size == 0)
-          this.TNData = [];
+          this.reviewDetails = [];
         else
-        this.TNData = [...filtertedData];
+        this.reviewDetails = [...filtertedData];
     }
   }
 
 
   // this method is used to remove the member
   deleteMember(index:any){
-    if(confirm("sure you want to Remove "+this.TNData[index].NAME)) {
-      this.traineeDetailsService.deleteReviewDetails(this.TNData[index]);
-      this.TNData.splice(index,1);
-      this.checkTNData = this.TNData;
+    if(confirm("sure you want to Remove "+this.reviewDetails[index].NAME)) {
+      this.traineeDetailsService.deleteReviewDetails(this.reviewDetails[index]);
+      this.reviewDetails.splice(index,1);
+      this.checkreviewDetails = this.reviewDetails;
     }
   }
 
@@ -171,21 +179,21 @@ TNData:any =[];
   // this method is used to fill the Member Details in Edit Form
   editMember(index:any){
     this.showEdit();
-    this.editMemberForm.controls['ACE_ID'].setValue(this.TNData[index].ACE_ID);
-    this.editMemberForm.controls['First_Name'].setValue(this.TNData[index].First_Name);
-    this.editMemberForm.controls['Mail_ID'].setValue(this.TNData[index].Mail_ID);
-    this.editMemberForm.controls['College_Name'].setValue(this.TNData[index].College_Name);
-    this.editMemberForm.controls['Practice'].setValue(this.TNData[index].Practice);
-    this.editMemberForm.controls['DOJ'].setValue(this.TNData[index].DOJ);
+    this.editMemberForm.controls['ACE_ID'].setValue(this.reviewDetails[index].ACE_ID);
+    this.editMemberForm.controls['First_Name'].setValue(this.reviewDetails[index].First_Name);
+    this.editMemberForm.controls['Mail_ID'].setValue(this.reviewDetails[index].Mail_ID);
+    this.editMemberForm.controls['College_Name'].setValue(this.reviewDetails[index].College_Name);
+    this.editMemberForm.controls['Practice'].setValue(this.reviewDetails[index].Practice);
+    this.editMemberForm.controls['DOJ'].setValue(this.reviewDetails[index].DOJ);
   }
 
 
   // this method is used to Edit the Member Details
   EditedMemberDetails(value:any){
     
-    for(var i=0;i<this.TNData.length;i++){
-      if(this.TNData[i].ACE_ID === value.ACE_ID){
-        this.TNData[i] = value;
+    for(var i=0;i<this.reviewDetails.length;i++){
+      if(this.reviewDetails[i].ACE_ID === value.ACE_ID){
+        this.reviewDetails[i] = value;
         break;
       }
     }
@@ -199,13 +207,13 @@ TNData:any =[];
     if(checkbox.checked){
     if(confirm("sure you want to remove all Members")){
     this.traineeDetailsService.deleteAllReviewDetails();
-    this.TNData = [];
-    this.checkTNData = [];
+    this.reviewDetails = [];
+    this.checkreviewDetails = [];
     checkbox.checked = false;
     }
     }else{
       var checkedIndex = 0;
-      for(var i=0;i<this.TNData.length;i++){
+      for(var i=0;i<this.reviewDetails.length;i++){
         const checkbox = document.getElementById("checkbox"+i) as HTMLInputElement;
         if(checkbox.checked){
           this.deleteMember(i);
@@ -238,7 +246,7 @@ TNData:any =[];
   showTraineeDetails(index:any){
     this.filteredQuestionBank = [];
     if(index >= 0){
-      this.traineeDetail = this.TNData[index];
+      this.traineeDetail = this.reviewDetails[index];
       console.log(this.traineeDetail.TECHNICAL_ID);
       let filterIndex = 0;
       for(var i=0;i<this.questionBank.length;i++){
@@ -259,12 +267,45 @@ TNData:any =[];
 
   saveScore(){
     const MarksList = [];
-    console.log(this.filteredQuestionBank);
-    for(var i =0; this.filteredQuestionBank.length; i++){
+    var sumMarks = 0;
+    var weightageSum =0;
+    for(var i =0; i< this.filteredQuestionBank.length; i++){
       const marks = document.getElementById("score"+i) as HTMLInputElement;
       MarksList[i] = marks?.value;
+      sumMarks += Number(MarksList[i]);
+      weightageSum += this.filteredQuestionBank[i].WEIGHTAGE;
     }
-    console.log(MarksList);
-    // alert("score Saved successfully");
+    let overallPerformance = "";
+    sumMarks = (sumMarks /weightageSum) * 100;
+    if(sumMarks >= 95)
+      overallPerformance = "Exceptional";
+    else if (sumMarks >= 85)
+      overallPerformance = "Excellent";
+    else if ( sumMarks >= 70)
+      overallPerformance = "Good";
+    else if ( sumMarks >= 60)
+      overallPerformance = "Average";
+    else{
+      overallPerformance = "Needs Improvement";
+    let aiSuggestionList:any = [];
+    for(var i=0; i<this.filteredQuestionBank.length;i++){
+        aiSuggestionList[i].push({
+            Technical_Topic: this.filteredQuestionBank[i].TOPIC,
+            Objective: this.filteredQuestionBank[i].OBJECTIVE,
+            Maximum: this.filteredQuestionBank[i].WEIGHTAGE,
+            Awarded: MarksList[i]
+        })
+    }
+      this.traineeDetailsService.aiSuggestion(aiSuggestionList);
+    }
+     
+    const finalUpdate = Object.assign(this.traineeDetail,{OVERALL_SCORE: sumMarks,OVERALL_PERFORMANCE: overallPerformance,MARKS_LIST:MarksList});
+    this.traineeDetailsService.updateMarks(finalUpdate).subscribe((res)=>{
+      alert("marks updated");
+      window.location.reload();
+    },(error)=>{
+      console.log(error);
+    }
+  )
   }
 }

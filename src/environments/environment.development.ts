@@ -22,4 +22,6 @@ export const environment = {
     addQuestion:"http://localhost:3300/addQuestion",
     editQuestion:"http://localhost:3300/editQuestion",
     deleteQuestion:"http://localhost:3300/deleteQuestion",
+    updateMarks:"http://localhost:3300/updateMarks",
+     aiSuggestion:"https://django-genai-api-gehceketc9hvaycr.canadacentral-01.azurewebsites.net/suggestions/generate/"
 };

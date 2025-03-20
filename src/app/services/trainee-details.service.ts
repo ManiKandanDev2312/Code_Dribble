@@ -173,4 +173,18 @@ export class TraineeDetailsService {
   );
   }
 
+
+  updateMarks(marksDetails:any){
+    return this.http.post(environment.updateMarks,marksDetails,{responseType : "text"});
+  }
+
+  aiSuggestion(Marks:any){
+    this.http.post(environment.aiSuggestion,Marks,{responseType : "text"}).subscribe((res)=>{
+      console.log(res);
+    },(error)=>{
+      console.log(error);
+    }
+  )
+  }
+
 }

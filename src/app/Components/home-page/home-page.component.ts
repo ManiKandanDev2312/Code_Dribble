@@ -25,10 +25,10 @@ export class HomePageComponent {
         pageName:"Management",
         route:"dashboard"
         },
-        {
-        pageName:"Review",
-        route:"review"
-        }
+        // {
+        // pageName:"Review",
+        // route:"review"
+        // }
     ]
   },{
     pageName:"TN Management",
