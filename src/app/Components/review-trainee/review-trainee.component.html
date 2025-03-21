@@ -64,7 +64,7 @@ Description: this component is used for Review Pending.
         <div class="scroll-content">
         <tr class="table-data" *ngFor="let data of TNData;let i=index">
             <td><input type="checkbox" [id]="'checkbox'+i"></td>
-            <td class="data" title="{{data.ACE_ID}}"  (click)="showTraineeDetails(i)">{{data.TRAINEE_ID}}</td>
+            <td class="data" title="{{data.ACE_ID}}"  >{{data.TRAINEE_ID}}</td>
             <td class="data" title="{{data.NAME}}">{{data.TRAINEE_NAME}}</td>
             <td class="data" title="{{data.Mail_Id}}">{{data.TECHNOLOGY}}</td>
             <td class="data">
@@ -125,7 +125,7 @@ Description: this component is used for Review Pending.
 </div>
 
 <!-- this visualize the individual Trainee Details-->
-<div class="showTraineeDetails" *ngIf="showTraineeList">
+<!-- <div class="showTraineeDetails" *ngIf="showTraineeList">
     <div class="inner-TraineeDetails">
         <div class="inner-TNmanagement">
             <h2>Impact Trainee</h2>
@@ -313,6 +313,6 @@ Description: this component is used for Review Pending.
         </table>
     </div>
     </div>
-</div>
+</div> -->
 
 
