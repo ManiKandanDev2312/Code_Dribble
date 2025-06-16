@@ -187,4 +187,20 @@ export class TraineeDetailsService {
   )
   }
 
+
+  // this method is used to send the suggestion mail for the Trainee
+  sendSuggestionMail(ccMails:any,toMail:any){
+    const mailDetails = {
+      ccMail : ccMails,
+      toMail: toMail
+    }
+    this.http.post(environment.sendSuggestionMail,mailDetails,{responseType : "text"}).subscribe((res)=>{
+      alert("mail sent successfully");
+      window.location.reload();
+    },(error)=>{
+      console.log(error);
+    }
+  )
+  }
+
 }

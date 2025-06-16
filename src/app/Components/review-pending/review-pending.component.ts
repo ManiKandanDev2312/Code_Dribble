@@ -312,29 +312,30 @@ reviewDetails:any =[];
         if(this.employeeDetails[i].ACE_ID == this.traineeDetail.MENTOR_ID || this.employeeDetails[i].ACE_ID == this.traineeDetail.REVIEWER_ID || this.employeeDetails[i].ACE_ID == this.traineeDetail.TN_TEAM_ID){
           emailCCList[emailIndex++] = this.employeeDetails[i].Mail_Id;
         }else if(this.employeeDetails[i].ACE_ID == this.traineeDetail.TRAINEE_ID || this.employeeDetails[i].INT_ID == this.traineeDetail.TRAINEE_ID){
-          emailTo= this.employeeDetails[i].Mail_Id;
+          emailTo = this.employeeDetails[i].Mail_Id;
         }
       }
       console.log(emailCCList);
-    // let aiSuggestionList:any = [];
-    // for(var i=0; i<this.filteredQuestionBank.length;i++){
-    //     aiSuggestionList[i].push({
-    //         Technical_Topic: this.filteredQuestionBank[i].TOPIC,
-    //         Objective: this.filteredQuestionBank[i].OBJECTIVE,
-    //         Maximum: this.filteredQuestionBank[i].WEIGHTAGE,
-    //         Awarded: MarksList[i]
-    //     })
-    // }
+    let aiSuggestionList:any = [];
+    for(var i=0; i<this.filteredQuestionBank.length;i++){
+        aiSuggestionList[i].push({
+            Technical_Topic: this.filteredQuestionBank[i].TOPIC,
+            Objective: this.filteredQuestionBank[i].OBJECTIVE,
+            Maximum: this.filteredQuestionBank[i].WEIGHTAGE,
+            Awarded: MarksList[i]
+        })
+    }
     // this.traineeDetailsService.aiSuggestion(aiSuggestionList);
+    this.traineeDetailsService.sendSuggestionMail(emailCCList,emailTo);
     }
      
     const finalUpdate = Object.assign(this.traineeDetail,{OVERALL_SCORE: sumMarks,OVERALL_PERFORMANCE: overallPerformance,MARKS_LIST:MarksList});
-  //   this.traineeDetailsService.updateMarks(finalUpdate).subscribe((res)=>{
-  //     alert("marks updated");
-  //     window.location.reload();
-  //   },(error)=>{
-  //     console.log(error);
-  //   }
-  // )
+    this.traineeDetailsService.updateMarks(finalUpdate).subscribe((res)=>{
+      alert("marks updated");
+      window.location.reload();
+    },(error)=>{
+      console.log(error);
+    }
+  )
   }
 }
